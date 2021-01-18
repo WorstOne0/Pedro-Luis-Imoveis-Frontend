@@ -1,7 +1,9 @@
 import { combineReducers } from "redux";
 
-import NavBar from "./NavBar";
+import todoList from "./todoList";
+import search from "./search";
 
 export default combineReducers({
-  NavBar,
+  todoList,
+  search
 });
