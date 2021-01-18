@@ -31,7 +31,6 @@ import {
 } from "react-icons/fa";
 
 /*
-const MainAntigo = () => {
   fetchData = async () => {
     const search = {
       type: null,
@@ -43,30 +42,7 @@ const MainAntigo = () => {
       price: { min: 0, max: 1000000000000 },
       area: { min: 0, max: 1000000000000 },
     };
-
-    const res = await Api.get(`/property`, { params: { search } });
-
-    this.setState({
-      realEstate: res.data.docs,
-      isFecth: true,
-      total: res.data.total,
-    });
-  };
-
-  return = {
-    const { realEstate, total } = this.state;
-
-    const {
-      typeSelected,
-      citySelected,
-      realStateSelected,
-      districtSelected,
-    } = this.props.search;
-
-    const { type, city, district, definition } = Exports;
-
-    /*Contatos - Solicitar uma Avaliação
-  }*/
+*/
 
 const Main = () => {
   const dispatch = useDispatch();
@@ -80,9 +56,11 @@ const Main = () => {
     realStateSelected,
   } = useSelector((state) => state.search);
 
-  const ImgCity = require(`../../assets/nagatoshi-shimamura-ZLjMqugKoDA-unsplash.jpg`);
-  const TypingImg = require("../../assets/1_new_condo.gif");
-  const AuthorSrcImg = require("../../assets/16649071_1113406715448385_828873973785613706_n.jpg");
+  const ImgCity = require("../../assets/nagatoshi-shimamura-ZLjMqugKoDA-unsplash.jpg")
+    .default;
+  const TypingImg = require("../../assets/1_new_condo.gif").default;
+  const AuthorSrcImg = require("../../assets/16649071_1113406715448385_828873973785613706_n.jpg")
+    .default;
 
   const realEstate = [];
   const total = 0;

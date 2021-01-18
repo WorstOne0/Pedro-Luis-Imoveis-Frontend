@@ -29,7 +29,7 @@ const Card = ({ realEstate }) => {
             src={realEstate.thumbImg ? realEstate.thumbImg.url : defaultImg}
           />
         </Link>
-        <Type>{realEstate.info.sale}</Type>
+        <S.Type>{realEstate.info.sale}</S.Type>
 
         <S.DescriptionIcons>
           {realEstate.spotlight && <FaStar />}
