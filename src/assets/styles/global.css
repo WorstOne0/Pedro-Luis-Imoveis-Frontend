@@ -2,16 +2,18 @@
 @import url("https://fonts.googleapis.com/css2?family=Vollkorn+SC&display=swap");
 
 :root {
-  --color-primary-lighter: #3e76c5;
-  --color-primary-light: #2564bd;
+  --color-primary-hover-lighter: #5083ca;
+  --color-primary-lighter: #3a74c3;
+  --color-primary-light: #2464bd;
   --color-primary: #0e55b6;
-  --color-primary-dark: #0e4da6;
-  --color-primary-darker: #0f4795;
+  --color-primary-dark: #0e4fa7;
+  --color-primary-darker: #0f4998;
+  --color-primary-hover-darker: #0f4389;
   --color-secundary-light: none;
   --color-secundary: #8c1515;
   --color-secundary-dark: none;
   --color-white: #fff;
-  --color-black: #111;
+  --color-black: #121212;
   --color-text-base: #d4c2ff;
 
   font-size: 62.5%;

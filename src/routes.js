@@ -7,7 +7,7 @@ import client from "./services/apollo";
 import { Provider } from "react-redux";
 import store from "./store/store";
 
-import { Main } from "./pages";
+import { Main, Login, RealEstate, Admin } from "./pages";
 
 export default class Routes extends Component {
   render() {
@@ -16,6 +16,9 @@ export default class Routes extends Component {
         <Provider store={store}>
           <BrowserRouter>
             <Route path="/" exact component={Main} />
+            <Route path="/realestate" component={RealEstate} />
+            <Route path="/login" component={Login} />
+            <Route path="/admin" component={Admin} />
           </BrowserRouter>
         </Provider>
       </ApolloProvider>
