@@ -4,6 +4,7 @@ import { Container, Input, Label } from "./styles";
 
 const InputText = ({
   value = "",
+  icon = null,
   setValue,
   margin = "0",
   name,
@@ -11,6 +12,8 @@ const InputText = ({
   backgroundName = "var(--color-dark)",
   borderColor = "var(--color-darker)",
   borderColorHover = "var(--color-primary)",
+  color = "var(--color-white)",
+  colorLabel = "var(--color-white)",
   onFocus,
   onBlur,
 }) => {
@@ -25,10 +28,13 @@ const InputText = ({
         onChange={setValue}
         borderColor={borderColor}
         borderColorHover={borderColorHover}
+        color={color}
         onFocus={onFocus ? onFocus : () => {}}
         onBlur={onBlur ? onBlur : () => {}}
       />
-      <Label className="Label">{name}</Label>
+      <Label className="Label" colorLabel={colorLabel}>
+        {name}
+      </Label>
     </Container>
   );
 };

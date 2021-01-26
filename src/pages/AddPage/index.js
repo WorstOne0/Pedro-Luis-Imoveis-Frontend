@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useQuery, useMutation, gql } from "@apollo/client";
 import { Link, useHistory } from "react-router-dom";
 
@@ -155,13 +155,13 @@ const AddPage = () => {
     });
   };
 
-  handleDeleteFile = (file) => {
+  const handleDeleteFile = (file) => {
     setUploadedFiles(
       uploadedFiles.filter((uploadedFile) => uploadedFile.id !== file.id)
     );
   };
 
-  handleTitleFile = (files) => {
+  const handleTitleFile = (files) => {
     if (!files.length) {
       return "Escolha um Arquivo";
     } else if (files.length === 1) {
@@ -181,22 +181,18 @@ const AddPage = () => {
         <S.Error>You Shall not Pass</S.Error>
       ) : (
         <>
-          <Container>
-            <Left>
-              <TitleLeft>
-                <GoBack onClick={() => history.goBack()}>
+          <S.Container>
+            <S.Left>
+              <S.TitleLeft>
+                <S.GoBack onClick={() => history.goBack()}>
                   <MdKeyboardBackspace />
-                </GoBack>
+                </S.GoBack>
                 Adicionar um Imóvel
-              </TitleLeft>
+              </S.TitleLeft>
 
-              <Form onSubmit={handleSubmit} id="form">
-                <ContainerAddress>
-                  <IconShelter>
-                    <FaUserCircle className="Icon" />
-                  </IconShelter>
-
-                  <StyleAddress>
+              <S.Form onSubmit={handleSubmit} id="form">
+                <S.ContainerAddress>
+                  <S.StyleAddress>
                     <InputText
                       value={text.name}
                       setValue={(event) => {
@@ -205,43 +201,45 @@ const AddPage = () => {
                         setText({ ...text, name: event.target.value });
                       }}
                       name="Name"
-                      borderColor={"var(--color-primary-hover-lighter)"}
-                      borderColorHover={"var(--color-white)"}
-                      backgroundName={"var(--color-primary)"}
+                      borderColor={"var(--color-primary)"}
+                      borderColorHover={"var(--color-primary-hover-lighter)"}
+                      backgroundName={"var(--color-white)"}
+                      color={"var(--color-black)"}
+                      colorLabel={"var(--color-primary)"}
                     />
-                  </StyleAddress>
+                  </S.StyleAddress>
 
-                  <StyleAddress>
+                  <S.StyleAddress>
                     <Select
-                      styles={selectWithoutBorder}
+                      styles={S.selectWithoutBorder}
                       options={definition}
-                      value={definitionSelected}
+                      value={text.definitionSelected}
                       onChange={(value) =>
-                        this.setState({ definitionSelected: value }, () =>
-                          this.handleValidation()
-                        )
+                        setText({ ...text, definitionSelected: value })
                       }
                       placeholder={"Definição"}
                       isClearable={true}
                     />
-                  </StyleAddress>
-                </ContainerAddress>
+                  </S.StyleAddress>
+                </S.ContainerAddress>
 
-                <TextArea
+                <S.TextArea
                   placeholder="Descrição"
                   name="description"
-                  value={description}
-                  onChange={this.handleInputChange}
+                  value={text.description}
+                  onChange={(event) => {
+                    event.preventDefault();
+
+                    setText({ ...text, description: event.target.value });
+                  }}
                   autoComplete="off"
                 />
 
-                <Section>Detalhes</Section>
+                <S.Section>Detalhes</S.Section>
 
-                <ContainerDetails>
+                <S.ContainerDetails>
                   <div className="Left">
-                    <StyleInput>
-                      <FaMoneyBillWaveAlt className="Icon" />
-
+                    <S.StyleInput>
                       <InputText
                         value={text.price}
                         setValue={(event) => {
@@ -250,228 +248,227 @@ const AddPage = () => {
                           setText({ ...text, price: event.target.value });
                         }}
                         name="Valor"
-                        borderColor={"var(--color-primary-hover-lighter)"}
-                        borderColorHover={"var(--color-white)"}
-                        backgroundName={"var(--color-primary)"}
+                        borderColor={"var(--color-primary)"}
+                        borderColorHover={"var(--color-primary-hover-lighter)"}
+                        backgroundName={"var(--color-white)"}
+                        color={"var(--color-black)"}
+                        colorLabel={"var(--color-primary)"}
                       />
-                      <CompInput>Reais</CompInput>
-                    </StyleInput>
+                      <S.CompInput>Reais</S.CompInput>
+                    </S.StyleInput>
 
-                    <StyleInput>
-                      <FaChartArea className="Icon" />
+                    <S.StyleInput>
                       <InputText
-                        value={text.info.area}
+                        value={text.area}
                         setValue={(event) => {
                           event.preventDefault();
 
                           setText({
                             ...text,
-                            info: { ...text.info, area: event.target.value },
+                            area: event.target.value,
                           });
                         }}
                         name="Area"
-                        borderColor={"var(--color-primary-hover-lighter)"}
-                        borderColorHover={"var(--color-white)"}
-                        backgroundName={"var(--color-primary)"}
+                        borderColor={"var(--color-primary)"}
+                        borderColorHover={"var(--color-primary-hover-lighter)"}
+                        backgroundName={"var(--color-white)"}
+                        color={"var(--color-black)"}
+                        colorLabel={"var(--color-primary)"}
                       />
 
-                      <CompInput>
+                      <S.CompInput>
                         m<sup>2</sup>
-                      </CompInput>
-                    </StyleInput>
+                      </S.CompInput>
+                    </S.StyleInput>
 
-                    <StyleInput>
-                      <FaBath className="Icon" />
+                    <S.StyleInput>
                       <InputText
-                        value={text.info.suite}
+                        value={text.suite}
                         setValue={(event) => {
                           event.preventDefault();
 
                           setText({
                             ...text,
-                            info: { ...text.info, suite: event.target.value },
+                            suite: event.target.value,
                           });
                         }}
                         name="Suite"
-                        borderColor={"var(--color-primary-hover-lighter)"}
-                        borderColorHover={"var(--color-white)"}
-                        backgroundName={"var(--color-primary)"}
+                        borderColor={"var(--color-primary)"}
+                        borderColorHover={"var(--color-primary-hover-lighter)"}
+                        backgroundName={"var(--color-white)"}
+                        color={"var(--color-black)"}
+                        colorLabel={"var(--color-primary)"}
                       />
-                    </StyleInput>
+                    </S.StyleInput>
                   </div>
                   <div className="Right">
                     <Select
-                      styles={customStyles}
+                      styles={S.customStyles}
                       options={type}
-                      value={typeSelected}
+                      value={text.typeSelected}
                       onChange={(value) =>
-                        this.setState({ typeSelected: value }, () =>
-                          this.handleValidation()
-                        )
+                        setText({ ...text, typeSelected: value })
                       }
                       placeholder={"Tipo"}
                       isClearable={true}
                     />
 
-                    <StyleInput>
-                      <FaBed className="Icon" />,
+                    <S.StyleInput>
                       <InputText
-                        value={text.info.room}
+                        value={text.room}
                         setValue={(event) => {
                           event.preventDefault();
 
                           setText({
                             ...text,
-                            info: { ...text.info, room: event.target.value },
+                            room: event.target.value,
                           });
                         }}
                         name="Quartos"
-                        borderColor={"var(--color-primary-hover-lighter)"}
-                        borderColorHover={"var(--color-white)"}
-                        backgroundName={"var(--color-primary)"}
+                        borderColor={"var(--color-primary)"}
+                        borderColorHover={"var(--color-primary-hover-lighter)"}
+                        backgroundName={"var(--color-white)"}
+                        color={"var(--color-black)"}
+                        colorLabel={"var(--color-primary)"}
                       />
-                    </StyleInput>
+                    </S.StyleInput>
 
-                    <StyleInput>
-                      <FaCarAlt className="Icon" />
+                    <S.StyleInput>
                       <InputText
-                        value={text.info.garage}
+                        value={text.garage}
                         setValue={(event) => {
                           event.preventDefault();
 
                           setText({
                             ...text,
-                            info: { ...text.info, garage: event.target.value },
+                            garage: event.target.value,
                           });
                         }}
                         name="Garage"
-                        borderColor={"var(--color-primary-hover-lighter)"}
-                        borderColorHover={"var(--color-white)"}
-                        backgroundName={"var(--color-primary)"}
+                        borderColor={"var(--color-primary)"}
+                        borderColorHover={"var(--color-primary-hover-lighter)"}
+                        backgroundName={"var(--color-white)"}
+                        color={"var(--color-black)"}
+                        colorLabel={"var(--color-primary)"}
                       />
-                    </StyleInput>
+                    </S.StyleInput>
                   </div>
-                </ContainerDetails>
+                </S.ContainerDetails>
 
-                <StyleCheckBox>
+                <S.StyleCheckBox>
                   <FaStar
                     className="Checked"
-                    check={this.state.destaque ? "flex" : "none"}
+                    check={"flex"}
                     onClick={() => this.setState({ destaque: false })}
                   />
                   <FaRegStar
                     className="Unchecked"
-                    check={this.state.destaque ? "none" : "flex"}
+                    check={"none"}
                     onClick={() => this.setState({ destaque: true })}
                   />
                   Destaque
-                </StyleCheckBox>
+                </S.StyleCheckBox>
 
-                <Section>Localização</Section>
+                <S.Section>Localização</S.Section>
 
-                <ContainerAddress>
-                  <IconShelter>
+                <S.ContainerAddress>
+                  <S.IconShelter>
                     <MdLocationOn />
-                  </IconShelter>
+                  </S.IconShelter>
 
-                  <StyleAddress>
+                  <S.StyleAddress>
                     <InputText
-                      value={text.address.street}
+                      value={text.street}
                       setValue={(event) => {
                         event.preventDefault();
 
                         setText({
                           ...text,
-                          address: {
-                            ...text.address,
-                            street: event.target.value,
-                          },
+                          street: event.target.value,
                         });
                       }}
                       name="Rua"
-                      borderColor={"var(--color-primary-hover-lighter)"}
-                      borderColorHover={"var(--color-white)"}
-                      backgroundName={"var(--color-primary)"}
+                      borderColor={"var(--color-primary)"}
+                      borderColorHover={"var(--color-primary-hover-lighter)"}
+                      backgroundName={"var(--color-white)"}
+                      color={"var(--color-black)"}
+                      colorLabel={"var(--color-primary)"}
                     />
-                  </StyleAddress>
+                  </S.StyleAddress>
 
-                  <StyleAddress>
+                  <S.StyleAddress>
                     <Select
-                      styles={selectWithoutBorder}
+                      styles={S.selectWithoutBorder}
                       options={district}
-                      value={districtSelected}
+                      value={text.districtSelected}
                       onChange={(value) =>
-                        this.setState({ districtSelected: value }, () =>
-                          this.handleValidation()
-                        )
+                        setText({ ...text, districtSelected: value })
                       }
                       placeholder={"Bairro"}
                       isClearable={true}
                     />
-                  </StyleAddress>
+                  </S.StyleAddress>
 
                   <label>Cascavel/PR</label>
-                </ContainerAddress>
+                </S.ContainerAddress>
 
-                <ContainerDetails>
+                <S.ContainerDetails>
                   <div className="Left">
-                    <StyleInput>
+                    <S.StyleInput>
                       <FaMapMarkedAlt className="Icon" />
                       <InputText
-                        value={text.address.latitude}
+                        value={text.latitude}
                         setValue={(event) => {
                           event.preventDefault();
 
                           setText({
                             ...text,
-                            address: {
-                              ...text.latitude,
-                              street: event.target.value,
-                            },
+                            latitude: event.target.value,
                           });
                         }}
                         name="Latitude"
-                        borderColor={"var(--color-primary-hover-lighter)"}
-                        borderColorHover={"var(--color-white)"}
-                        backgroundName={"var(--color-primary)"}
+                        borderColor={"var(--color-primary)"}
+                        borderColorHover={"var(--color-primary-hover-lighter)"}
+                        backgroundName={"var(--color-white)"}
+                        color={"var(--color-black)"}
+                        colorLabel={"var(--color-primary)"}
                       />
-                    </StyleInput>
+                    </S.StyleInput>
                   </div>
                   <div className="Right">
-                    <StyleInput>
+                    <S.StyleInput>
                       <FaMapMarkedAlt className="Icon" />
                       <InputText
-                        value={text.address.longitude}
+                        value={text.longitude}
                         setValue={(event) => {
                           event.preventDefault();
 
                           setText({
                             ...text,
-                            address: {
-                              ...text.longitude,
-                              street: event.target.value,
-                            },
+                            longitude: event.target.value,
                           });
                         }}
                         name="Longitude"
-                        borderColor={"var(--color-primary-hover-lighter)"}
-                        borderColorHover={"var(--color-white)"}
-                        backgroundName={"var(--color-primary)"}
+                        borderColor={"var(--color-primary)"}
+                        borderColorHover={"var(--color-primary-hover-lighter)"}
+                        backgroundName={"var(--color-white)"}
+                        color={"var(--color-black)"}
+                        colorLabel={"var(--color-primary)"}
                       />
-                    </StyleInput>
+                    </S.StyleInput>
                   </div>
-                </ContainerDetails>
+                </S.ContainerDetails>
 
-                <Section>Topicos Adicionais</Section>
+                <S.Section>Topicos Adicionais</S.Section>
 
-                <ToDo list={null} />
+                {/**<ToDo list={null} />
 
-                <Section>Imagens</Section>
+                <S.Section>Imagens</S.Section>
 
-                <InputFile for="FileUpload">
+                <S.InputFile for="FileUpload">
                   <MdCloudUpload className="IconTitle" />
                   {this.handleTitleFile(uploadedFiles)}
-                </InputFile>
+                </S.InputFile>
                 <Input
                   name="files"
                   type="file"
@@ -538,12 +535,12 @@ const AddPage = () => {
                     </ImgWithProgress>
                     ))
                   </ImgContainer>
-                )}
-              </Form>
-            </Left>
+                )} */}
+              </S.Form>
+            </S.Left>
 
-            <Right>
-              {this.state.formIsValid ? (
+            <S.Right>
+              {/*this.state.formIsValid ? (
                 this.state.isFinished ? (
                   <SubmitMsg>
                     {this.state.totalImgs == uploadedFiles.length + 1 ? (
@@ -573,7 +570,7 @@ const AddPage = () => {
                     <Submit
                       type="submit"
                       form="form"
-                      /*onClick={() => this.setState({ isUploading: true })}*/
+                      /*onClick={() => this.setState({ isUploading: true })}
                     >
                       Adicionar
                     </Submit>
@@ -588,9 +585,9 @@ const AddPage = () => {
                     </ValidationMsg>
                   ))}
                 </ValidationContainer>
-              )}
-            </Right>
-          </Container>
+              )*/}
+            </S.Right>
+          </S.Container>
         </>
       )}
     </>

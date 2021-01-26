@@ -28,6 +28,8 @@ export const Input = styled.input`
 
   font-size: 1.6rem;
 
+  color: ${(props) => props.color};
+
   :focus {
     border-color: ${(props) => props.borderColorHover};
   }
@@ -40,7 +42,7 @@ export const Label = styled.label`
   top: 50%;
   left: 2rem;
 
-  color: var(--color-white);
+  color: ${(props) => props.colorLabel};
   font-size: 1.6rem;
 
   transform: translateY(-50%);

@@ -111,7 +111,7 @@ export const StyleInput = styled.div`
   width: 100%;
   margin-top: 35px;
   padding: 0 10px;
-  border: 1px solid #003c8f;
+  //border: 1px solid #003c8f;
   border-radius: 5px;
 
   display: flex;
