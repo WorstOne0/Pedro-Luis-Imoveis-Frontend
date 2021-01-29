@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useQuery, useMutation, gql } from "@apollo/client";
+import { useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 
 import { isEmpty, uniqueId } from "lodash";
 import filesize from "filesize";
 
-import { Loading, InputText } from "../../components";
+import { Loading, InputText, ToDo } from "../../components";
 
 import { type, city, district, definition } from "../../data";
 
@@ -97,6 +98,8 @@ const AddPage = () => {
     spotlight: false,
   });
 
+  const todoList = useSelector((state) => state.todoList);
+
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [thumbnail, setThumbnail] = useState({});
 
@@ -110,7 +113,9 @@ const AddPage = () => {
     refetch();
   }, [refetch]);
 
-  const handleSubmit = () => {
+  const handleSubmit = (event) => {
+    //event.preventDefault();
+
     const {
       name,
       definitionSelected,
@@ -131,7 +136,7 @@ const AddPage = () => {
     addPost({
       variables: {
         name,
-        type,
+        type: definitionSelected,
         description,
         price,
         info: {
@@ -140,9 +145,9 @@ const AddPage = () => {
           suite,
           garage,
           spotlight,
-          sale: definitionSelected,
+          sale: typeSelected,
         },
-        infoAdd: [],
+        infoAdd: todoList,
         address: {
           street,
           districtSelected,
@@ -206,10 +211,11 @@ const AddPage = () => {
                       backgroundName={"var(--color-white)"}
                       color={"var(--color-black)"}
                       colorLabel={"var(--color-primary)"}
+                      icon={<FaMapMarkedAlt className="Icon" />}
                     />
                   </S.StyleAddress>
 
-                  <S.StyleAddress>
+                  <S.StyleAddress noMargin={true}>
                     <Select
                       styles={S.selectWithoutBorder}
                       options={definition}
@@ -253,6 +259,7 @@ const AddPage = () => {
                         backgroundName={"var(--color-white)"}
                         color={"var(--color-black)"}
                         colorLabel={"var(--color-primary)"}
+                        icon={<FaMoneyBillWaveAlt className="Icon" />}
                       />
                       <S.CompInput>Reais</S.CompInput>
                     </S.StyleInput>
@@ -274,6 +281,7 @@ const AddPage = () => {
                         backgroundName={"var(--color-white)"}
                         color={"var(--color-black)"}
                         colorLabel={"var(--color-primary)"}
+                        icon={<FaChartArea className="Icon" />}
                       />
 
                       <S.CompInput>
@@ -298,6 +306,7 @@ const AddPage = () => {
                         backgroundName={"var(--color-white)"}
                         color={"var(--color-black)"}
                         colorLabel={"var(--color-primary)"}
+                        icon={<FaBath className="Icon" />}
                       />
                     </S.StyleInput>
                   </div>
@@ -330,6 +339,7 @@ const AddPage = () => {
                         backgroundName={"var(--color-white)"}
                         color={"var(--color-black)"}
                         colorLabel={"var(--color-primary)"}
+                        icon={<FaBed className="Icon" />}
                       />
                     </S.StyleInput>
 
@@ -350,6 +360,7 @@ const AddPage = () => {
                         backgroundName={"var(--color-white)"}
                         color={"var(--color-black)"}
                         colorLabel={"var(--color-primary)"}
+                        icon={<FaCarAlt className="Icon" />}
                       />
                     </S.StyleInput>
                   </div>
@@ -372,10 +383,6 @@ const AddPage = () => {
                 <S.Section>Localização</S.Section>
 
                 <S.ContainerAddress>
-                  <S.IconShelter>
-                    <MdLocationOn />
-                  </S.IconShelter>
-
                   <S.StyleAddress>
                     <InputText
                       value={text.street}
@@ -393,6 +400,7 @@ const AddPage = () => {
                       backgroundName={"var(--color-white)"}
                       color={"var(--color-black)"}
                       colorLabel={"var(--color-primary)"}
+                      icon={<MdLocationOn />}
                     />
                   </S.StyleAddress>
 
@@ -409,13 +417,12 @@ const AddPage = () => {
                     />
                   </S.StyleAddress>
 
-                  <label>Cascavel/PR</label>
+                  <label className="State">Cascavel/PR</label>
                 </S.ContainerAddress>
 
                 <S.ContainerDetails>
                   <div className="Left">
                     <S.StyleInput>
-                      <FaMapMarkedAlt className="Icon" />
                       <InputText
                         value={text.latitude}
                         setValue={(event) => {
@@ -432,12 +439,12 @@ const AddPage = () => {
                         backgroundName={"var(--color-white)"}
                         color={"var(--color-black)"}
                         colorLabel={"var(--color-primary)"}
+                        icon={<FaMapMarkedAlt className="Icon" />}
                       />
                     </S.StyleInput>
                   </div>
                   <div className="Right">
                     <S.StyleInput>
-                      <FaMapMarkedAlt className="Icon" />
                       <InputText
                         value={text.longitude}
                         setValue={(event) => {
@@ -454,6 +461,7 @@ const AddPage = () => {
                         backgroundName={"var(--color-white)"}
                         color={"var(--color-black)"}
                         colorLabel={"var(--color-primary)"}
+                        icon={<FaMapMarkedAlt className="Icon" />}
                       />
                     </S.StyleInput>
                   </div>
@@ -461,9 +469,13 @@ const AddPage = () => {
 
                 <S.Section>Topicos Adicionais</S.Section>
 
-                {/**<ToDo list={null} />
+                <ToDo />
+
+                <S.Section>Thumbnail</S.Section>
 
                 <S.Section>Imagens</S.Section>
+
+                {/**
 
                 <S.InputFile for="FileUpload">
                   <MdCloudUpload className="IconTitle" />

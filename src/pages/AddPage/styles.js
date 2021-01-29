@@ -110,9 +110,6 @@ export const StyleInput = styled.div`
   height: 50px;
   width: 100%;
   margin-top: 35px;
-  padding: 0 10px;
-  //border: 1px solid #003c8f;
-  border-radius: 5px;
 
   display: flex;
   justify-content: center;
@@ -153,29 +150,26 @@ export const Input = styled.input`
 `;
 
 export const ContainerAddress = styled.div`
-  height: 50px;
+  height: 55px;
   width: 100%;
   margin-top: 35px;
-  padding-left: 10px;
-  border: 1px solid #003c8f;
-  border-radius: 5px;
 
   display: flex;
   justify-content: center;
   align-items: center;
 
-  color: #003c8f;
-  font-size: 18px;
-
-  label {
+  .State {
     height: 100%;
+    margin-top: 5px;
     padding: 0 15px;
-    border-radius: 0 5px 5px 0;
+    border-radius: 5px;
     background: #f5f5f5;
 
     display: flex;
     justify-content: center;
     align-items: center;
+
+    color: var(--color-primary);
 
     @media only screen and (max-width: 950px) {
       display: none;
@@ -195,6 +189,7 @@ export const IconShelter = styled.div`
 export const StyleAddress = styled.div`
   height: 50px;
   width: 100%;
+  margin-right: ${(props) => (props.noMargin ? "0" : "15px")};
 `;
 
 export const InputFile = styled.label`
@@ -473,15 +468,15 @@ export const customStyles = {
   }),
   control: (provided, state) => ({
     ...provided,
-    height: 50,
+    height: 55,
     width: "100%",
-    marginTop: 35,
+    marginTop: 30,
     padding: "0 10px",
     background: "transparent",
-    border: "1px solid #003c8f",
+    border: "1px solid var(--color-primary)",
     borderRadius: "5px",
-    color: "#003c8f",
-    fontSize: 18,
+    color: "var(--color-primary)",
+    fontSize: 16,
     "&:hover": {
       borderColor: "#003c8f !important",
       background: "transparent !important",
@@ -518,7 +513,7 @@ export const customStyles = {
   }),
   placeholder: (provided, state) => ({
     ...provided,
-    color: "#003c8f",
+    color: "var(--color-primary)",
   }),
   singleValue: (provided, state) => ({
     ...provided,
@@ -544,9 +539,79 @@ export const selectWithoutBorder = {
   }),
   control: (provided, state) => ({
     ...provided,
-    height: 48,
+    height: 55,
+    width: "100%",
+    padding: "0 10px",
+    background: "transparent",
+    border: "1px solid var(--color-primary)",
+    borderRadius: "5px",
+    color: "var(--color-primary)",
+    fontSize: 16,
+    "&:hover": {
+      borderColor: "#003c8f !important",
+      background: "transparent !important",
+    },
+    "@media only screen and (max-width: 1300px)": {
+      background: "#f5f5f5",
+      border: "1px solid #f5f5f5",
+      color: "#003c8f",
+      "&:hover": {
+        borderColor: "#f5f5f5 !important",
+      },
+    },
+  }),
+  valueContainer: (provided, state) => ({
+    ...provided,
+    maxHeight: 40,
+    "&:hover": {
+      background: "transparent",
+    },
+  }),
+  menuList: (provided, state) => ({
+    ...provided,
+    maxHeight: 180,
+    background: `#f5f5f5`,
+    color: `#111111`,
+  }),
+  option: (provided, state) => ({
+    ...provided,
+    padding: 15,
+    marginTop: 5,
+    border: "none",
+    background: `#f5f5f5`,
+    color: `#111111`,
+  }),
+  placeholder: (provided, state) => ({
+    ...provided,
+    color: "var(--color-primary)",
+  }),
+  singleValue: (provided, state) => ({
+    ...provided,
+    color: "#111",
+  }),
+  multiValue: (provided, state) => ({
+    ...provided,
+    display: "none",
+    color: "#000",
+  }),
+  clearIndicator: (provided, state) => ({
+    ...provided,
+    color: "#c91e1e",
+    "&:hover": {
+      color: "#a12828",
+    },
+  }),
+}; /* {
+  container: (provided, state) => ({
+    ...provided,
+  }),
+  control: (provided, state) => ({
+    ...provided,
+    height: 55,
     width: "100%",
     marginTop: 1,
+    border: "1px solid var(--color-primary)",
+    borderRadius: "5px",
     background: "#fff",
     color: "#003c8f",
   }),
@@ -588,4 +653,4 @@ export const selectWithoutBorder = {
       color: "#a12828",
     },
   }),
-};
+};*/

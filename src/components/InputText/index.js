@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Container, Input, Label } from "./styles";
+import { Container, Input, Label, Icon } from "./styles";
 
 const InputText = ({
   value = "",
@@ -33,7 +33,7 @@ const InputText = ({
         onBlur={onBlur ? onBlur : () => {}}
       />
       <Label className="Label" colorLabel={colorLabel}>
-        {name}
+        {icon && <Icon>{icon}</Icon>} {name}
       </Label>
     </Container>
   );

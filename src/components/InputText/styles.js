@@ -38,6 +38,9 @@ export const Input = styled.input`
 export const Label = styled.label`
   background: transparent;
 
+  display: flex;
+  align-items: center;
+
   position: absolute;
   top: 50%;
   left: 2rem;
@@ -49,4 +52,12 @@ export const Label = styled.label`
 
   pointer-events: none;
   transition: all 0.3s ease-out;
+`;
+
+export const Icon = styled.div`
+  margin-right: 5px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
