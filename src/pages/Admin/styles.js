@@ -277,7 +277,12 @@ export const DataBoxFooter = styled.h1`
 export const Error = styled.div`
   height: 100vh;
   width: 100%;
-  background: #fff;
+
+  background-image: url(${(props) => props.url});
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
 
   display: flex;
   justify-content: center;

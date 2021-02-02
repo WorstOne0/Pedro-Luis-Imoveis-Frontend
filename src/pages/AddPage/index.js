@@ -6,7 +6,7 @@ import { Link, useHistory } from "react-router-dom";
 import { isEmpty, uniqueId } from "lodash";
 import filesize from "filesize";
 
-import { Loading, InputText, ToDo } from "../../components";
+import { Loading, InputText, ToDo, DropZone, Gallery } from "../../components";
 
 import { type, city, district, definition } from "../../data";
 
@@ -101,7 +101,10 @@ const AddPage = () => {
   const todoList = useSelector((state) => state.todoList);
 
   const [uploadedFiles, setUploadedFiles] = useState([]);
-  const [thumbnail, setThumbnail] = useState({});
+  const [upload, setUpload] = useState(false);
+
+  const [thumbnail, setThumbnail] = useState([]);
+  const [uploadThumb, setUploadThumb] = useState(false);
 
   const [errors, setErrors] = useState({
     error: ["Documento vazio"],
@@ -112,6 +115,12 @@ const AddPage = () => {
   useEffect(() => {
     refetch();
   }, [refetch]);
+
+  useEffect(() => {
+    if (uploadedFiles.length === 0) setUpload(false);
+
+    if (thumbnail.length === 0) setUploadThumb(false);
+  }, [uploadedFiles, thumbnail]);
 
   const handleSubmit = (event) => {
     //event.preventDefault();
@@ -473,7 +482,40 @@ const AddPage = () => {
 
                 <S.Section>Thumbnail</S.Section>
 
+                <S.Wrapper>
+                  {uploadThumb ? (
+                    <Gallery
+                      uploadedFiles={thumbnail}
+                      setUploadedFiles={setThumbnail}
+                    />
+                  ) : (
+                    <DropZone
+                      text="Arraste sua imagem aqui"
+                      uploadedFiles={thumbnail}
+                      setUploadedFiles={setThumbnail}
+                      setUpload={setUploadThumb}
+                    />
+                  )}
+                </S.Wrapper>
+
                 <S.Section>Imagens</S.Section>
+
+                <S.Wrapper>
+                  {upload ? (
+                    <Gallery
+                      uploadedFiles={uploadedFiles}
+                      setUploadedFiles={setUploadedFiles}
+                    />
+                  ) : (
+                    <DropZone
+                      text="Arraste sua imagem aqui"
+                      uploadedFiles={uploadedFiles}
+                      setUploadedFiles={setUploadedFiles}
+                      setUpload={setUpload}
+                      multiple={true}
+                    />
+                  )}
+                </S.Wrapper>
 
                 {/**
 

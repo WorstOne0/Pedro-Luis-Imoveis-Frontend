@@ -462,6 +462,13 @@ export const Error = styled.div`
   font-size: 46px;
 `;
 
+export const Wrapper = styled.div`
+  width: 100%;
+  margin-top: 35px;
+
+  display: flex;
+`;
+
 export const customStyles = {
   container: (provided, state) => ({
     ...provided,

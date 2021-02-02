@@ -6,5 +6,18 @@ import Tab from "./Tab";
 import Svg from "./Svg";
 import InputText from "./InputText";
 import ToDo from "./ToDo";
+import DropZone from "./DropZone";
+import Gallery from "./Gallery";
 
-export { NavBar, Footer, Card, Loading, Tab, Svg, InputText, ToDo };
+export {
+  NavBar,
+  Footer,
+  Card,
+  Loading,
+  Tab,
+  Svg,
+  InputText,
+  ToDo,
+  DropZone,
+  Gallery,
+};

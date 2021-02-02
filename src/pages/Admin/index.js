@@ -11,6 +11,8 @@ import CountUp from "react-countup";
 import { FaUserFriends } from "react-icons/fa";
 import { MdMailOutline, MdLocationCity } from "react-icons/md";
 
+import errorImg from "../../assets/3008899.jpg";
+
 const LOGGED = gql`
   query {
     getLoggedUser {
@@ -48,7 +50,7 @@ const Admin = () => {
       {loading ? (
         <Loading />
       ) : data.getLoggedUser === null ? (
-        <S.Error>You Shall not Pass</S.Error>
+        <S.Error url={errorImg}>You Shall not Pass</S.Error>
       ) : (
         <>
           <NavBar />
