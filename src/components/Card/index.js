@@ -5,7 +5,7 @@ import * as S from "./styles";
 
 import { FaChartArea, FaBed, FaCarAlt, FaStar, FaBath } from "react-icons/fa";
 
-const Card = ({ realEstate }) => {
+const Card = ({ realEstate, delay }) => {
   const defaultImg = require("../../assets/download.png");
 
   const intlMonetary = new Intl.NumberFormat("pt-BR", {
@@ -15,7 +15,7 @@ const Card = ({ realEstate }) => {
   });
 
   return (
-    <S.Container delay={this.props.delay * 0.1}>
+    <S.Container delay={delay * 0.1}>
       <S.ContainerImg>
         <Link
           to={`details/${realEstate._id}`}
@@ -26,7 +26,7 @@ const Card = ({ realEstate }) => {
           }}
         >
           <S.CardImg
-            src={realEstate.thumbImg ? realEstate.thumbImg.url : defaultImg}
+            src={realEstate.thumbnail ? realEstate.thumbnail.url : defaultImg}
           />
         </Link>
         <S.Type>{realEstate.info.sale}</S.Type>
@@ -87,7 +87,7 @@ const Card = ({ realEstate }) => {
 
           <S.Details className="Area">
             <h1>
-              {realEstate.area}m<sup>2</sup>
+              {realEstate.info.area}m<sup>2</sup>
             </h1>
             <p>Area</p>
           </S.Details>

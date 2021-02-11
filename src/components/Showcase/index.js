@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { useQuery, gql } from "@apollo/client";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Card, Loading } from "../index";
@@ -10,9 +11,52 @@ import Select from "@atlaskit/select";
 import { FaSadTear } from "react-icons/fa";
 import { MdLocationCity } from "react-icons/md";
 
-const Showcase = () => {
-  const dispatch = useDispatch();
+const POSTS = gql`
+  query {
+    posts {
+      id
+      name
+      type
+      description
+      price
+      info {
+        area
+        sale
+        room
+        suite
+        garage
+        spotlight
+      }
+      infoAdd
+      address {
+        street
+        district
+        city
+        state
+        latitude
+        longitude
+      }
+      imagens {
+        name
+        key
+        url
+        size
+      }
+      thumbnail {
+        name
+        key
+        url
+        size
+      }
+      createdAt
+    }
+  }
+`;
 
+const Showcase = () => {
+  const { loading, error, data, refetch } = useQuery(POSTS);
+
+  const dispatch = useDispatch();
   const {
     typeSelected,
     citySelected,
@@ -27,7 +71,7 @@ const Showcase = () => {
     hasNext: false,
   });
 
-  const realEstate = [];
+  const myRef = useRef();
 
   const prevPage = () => {};
 
@@ -37,56 +81,64 @@ const Showcase = () => {
 
   const handleSubmit = () => {};
 
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
+
+  console.log(data, loading, error);
+
   return (
-    <Container>
-      <ContainerShowcase ref={myRef}>
-        <Header>
-          <Title>
+    <S.Container>
+      <S.ContainerShowcase ref={myRef}>
+        <S.Header>
+          <S.Title>
             <MdLocationCity />
             Imóveis
-          </Title>
-          <TitleDetails>{totalItems} Imóveis</TitleDetails>
-        </Header>
+          </S.Title>
+          <S.TitleDetails>
+            {!loading && data.posts.length} Imóveis
+          </S.TitleDetails>
+        </S.Header>
 
-        {false ? (
-          totalItems === 0 ? (
-            <Nothing>
+        {!loading ? (
+          data.posts.length === 0 ? (
+            <S.Nothing>
               <FaSadTear className="Icon" />
               Desculpe, Não há resultados
-            </Nothing>
+            </S.Nothing>
           ) : (
-            <Content>
-              {realEstate.map((item, index) => (
+            <S.Content>
+              {data.posts.map((item, index) => (
                 <Card key={item._id} realEstate={item} delay={index} />
               ))}
-            </Content>
+            </S.Content>
           )
         ) : (
           <Loading />
         )}
 
-        <Page>
-          <PageButton onClick={prevPage} page={pages.hasPrev}>
+        <S.Page>
+          <S.PageButton onClick={prevPage} page={pages.hasPrev}>
             Anterior
-          </PageButton>
-          <label>
+          </S.PageButton>
+          {/*<label>
             <Select
-              styles={customStyles}
+              styles={S.customStyles}
               options={arrayPages}
               value={{ value: pages.page, label: pages.page }}
               onChange={(value) => setPages({ ...pages, page: value.value })}
             />
             de {totalPages}
-          </label>
+          </label>*/}
 
-          <PageButton onClick={nextPage} page={pages.hasNext}>
+          <S.PageButton onClick={nextPage} page={pages.hasNext}>
             Proximo
-          </PageButton>
-        </Page>
-      </ContainerShowcase>
+          </S.PageButton>
+        </S.Page>
+      </S.ContainerShowcase>
 
-      <SearchBar handleSubmit={handleSubmit} />
-    </Container>
+      {/*<SearchBar handleSubmit={handleSubmit} />*/}
+    </S.Container>
   );
 };
 

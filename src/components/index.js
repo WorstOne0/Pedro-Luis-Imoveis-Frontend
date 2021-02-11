@@ -8,6 +8,7 @@ import InputText from "./InputText";
 import ToDo from "./ToDo";
 import DropZone from "./DropZone";
 import Gallery from "./Gallery";
+import Showcase from "./Showcase";
 
 export {
   NavBar,
@@ -20,4 +21,5 @@ export {
   ToDo,
   DropZone,
   Gallery,
+  Showcase,
 };

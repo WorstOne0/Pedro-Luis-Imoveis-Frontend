@@ -10,6 +10,8 @@ import { Loading, InputText, ToDo, DropZone, Gallery } from "../../components";
 
 import { type, city, district, definition } from "../../data";
 
+import s3 from "../../services/aws-s3";
+
 import * as S from "./styles";
 
 import Select from "@atlaskit/select";
@@ -122,8 +124,30 @@ const AddPage = () => {
     if (thumbnail.length === 0) setUploadThumb(false);
   }, [uploadedFiles, thumbnail]);
 
-  const handleSubmit = (event) => {
-    //event.preventDefault();
+  const uploadToS3 = async () => {
+    const res = await s3.uploadFile(
+      thumbnail[0].file,
+      `${Date.now()}${thumbnail[0].file.name}`
+    );
+    thumbnail[0].url = res.location;
+    thumbnail[0].id = res.key;
+
+    return await Promise.all(
+      uploadedFiles.map(async (file) => {
+        const res = await s3.uploadFile(
+          file.file,
+          `${Date.now()}${file.file.name}`
+        );
+
+        file.url = res.location;
+        file.id = res.key;
+        return res;
+      })
+    );
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
     const {
       name,
@@ -142,31 +166,47 @@ const AddPage = () => {
       spotlight,
     } = text;
 
-    addPost({
+    await uploadToS3();
+
+    await addPost({
       variables: {
         name,
-        type: definitionSelected,
+        type: definitionSelected.value,
         description,
-        price,
+        price: parseInt(price),
         info: {
-          area,
-          room,
-          suite,
-          garage,
+          area: parseInt(area),
+          room: parseInt(room),
+          suite: parseInt(suite),
+          garage: parseInt(garage),
           spotlight,
-          sale: typeSelected,
+          sale: typeSelected.value,
         },
-        infoAdd: todoList,
+        infoAdd: Object.values(todoList),
         address: {
           street,
-          districtSelected,
+          district: districtSelected.value,
           city: "Cascavel",
           state: "PR",
-          latitude,
-          longitude,
+          latitude: parseInt(latitude),
+          longitude: parseInt(longitude),
+        },
+        imagens: uploadedFiles.map((file) => ({
+          name: file.file.name,
+          key: file.id,
+          size: file.size,
+          url: file.url,
+        })),
+        thumbnail: {
+          name: thumbnail[0].file.name,
+          key: thumbnail[0].id,
+          size: thumbnail[0].size,
+          url: thumbnail[0].url,
         },
       },
     });
+
+    console.log("Pronto");
   };
 
   const handleDeleteFile = (file) => {
@@ -516,6 +556,8 @@ const AddPage = () => {
                     />
                   )}
                 </S.Wrapper>
+
+                <button type="submit">Click</button>
 
                 {/**
 

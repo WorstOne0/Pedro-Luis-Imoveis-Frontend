@@ -11,7 +11,6 @@ const SlideLeft = keyframes`
 `;
 
 export const Container = styled.div`
-  height: 100%;
   width: 100%;
 
   background: #f5f5f5;

@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 
-import { NavBar, Footer } from "../../components";
+import { NavBar, Footer, Showcase } from "../../components";
 
 import { animateScroll as scroll } from "react-scroll";
 
@@ -49,9 +49,9 @@ const RealEstate = () => {
             </IntroTitle>
           </IntroImg>
         </Intro>
-
-        {/*<Showcase />*/}
       </Container>
+
+      <Showcase />
 
       <Footer />
     </>
