@@ -25,20 +25,19 @@ export const IntroImg = styled.div`
   background-position: center;
 
   position: absolute;
-  top: 50%;
+  top: 0;
   left: 10%;
   z-index: 2;
   transform: translate(-10%, -50%);
 
   @media only screen and (max-width: 650px) {
-    top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
   }
 `;
 
 export const IntroTop = styled.div`
-  height: 50vh;
+  height: 100%;
   width: 100%;
   background: #003c8f;
 
@@ -46,7 +45,7 @@ export const IntroTop = styled.div`
   z-index: 1;
 
   @media only screen and (max-width: 650px) {
-    height: 40vh;
+    height: 50vh;
   }
 `;
 
@@ -93,6 +92,7 @@ export const Logout = styled.button`
 
 export const IntroBottom = styled.div`
   height: 50vh;
+  max-height: 390px;
   width: 100%;
   background: #f5f5f5;
 
@@ -104,15 +104,14 @@ export const IntroBottom = styled.div`
   z-index: 1;
 
   @media only screen and (max-width: 650px) {
-    height: 60vh;
+    height: 50vh;
+    max-height: 50vh;
 
     flex-direction: column;
   }
 `;
 
 export const UserNameBottom = styled.h1`
-  padding: 15px 0;
-
   display: none;
 
   color: #003c8f;
@@ -192,7 +191,7 @@ export const RemoveButton = styled(Button)`
 export const DataContainer = styled.div`
   height: 100%;
   width: 100%;
-  padding: 0 20px;
+  padding: 15px 20px;
 
   display: flex;
   justify-content: space-between;
@@ -209,8 +208,8 @@ export const DataContainer = styled.div`
 `;
 
 export const DataBox = styled.div`
-  height: 90%;
-  width: 250px;
+  height: 100%;
+  width: 32%;
   padding: 0 20px;
   background: #fff;
 
@@ -222,7 +221,7 @@ export const DataBox = styled.div`
   box-shadow: 0 0 5px -2px rgba(0, 0, 0, 0.75);
 
   @media only screen and (max-width: 1100px) {
-    height: 80px;
+    height: 30%;
     width: 100%;
 
     flex-direction: row;

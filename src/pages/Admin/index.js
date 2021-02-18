@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useQuery, useMutation, gql } from "@apollo/client";
 import { Link, useHistory } from "react-router-dom";
 
-import { NavBar, Footer, Loading } from "../../components";
+import { NavBar, Footer, Loading, Showcase } from "../../components";
 
 import * as S from "./styles";
 
@@ -39,6 +39,10 @@ const Admin = () => {
     refetch();
   }, [refetch]);
 
+  useEffect(() => {
+    document.documentElement.scrollTop = 0;
+  }, []);
+
   const handleLogout = async () => {
     const { data } = await logout();
 
@@ -56,7 +60,6 @@ const Admin = () => {
           <NavBar />
 
           <S.Container>
-            <S.IntroImg url={data.getLoggedUser.profilePicture} />
             <S.IntroTop>
               <S.TitleTop>{data.getLoggedUser.userName}</S.TitleTop>
 
@@ -66,8 +69,11 @@ const Admin = () => {
             </S.IntroTop>
 
             <S.IntroBottom>
+              <S.IntroImg url={data.getLoggedUser.profilePicture} />
               <S.UselessSpaceForNow>
-                <S.UserNameBottom>{data.userName}</S.UserNameBottom>
+                <S.UserNameBottom>
+                  {data.getLoggedUser.userName}
+                </S.UserNameBottom>
                 <Link
                   to="/admin/add"
                   style={{
@@ -126,7 +132,7 @@ const Admin = () => {
             </S.IntroBottom>
           </S.Container>
 
-          {/*<Showcase />*/}
+          <Showcase />
 
           <Footer />
         </>
