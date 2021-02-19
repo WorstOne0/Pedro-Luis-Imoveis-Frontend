@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useQuery, gql } from "@apollo/client";
 import { useDispatch, useSelector } from "react-redux";
 
-import { Card, Loading } from "../index";
+import { Card, Loading, SearchBar } from "../index";
 
 import * as S from "./styles";
 
@@ -137,7 +137,7 @@ const Showcase = () => {
         </S.Page>
       </S.ContainerShowcase>
 
-      {/*<SearchBar handleSubmit={handleSubmit} />*/}
+      <SearchBar handleSubmit={handleSubmit} />
     </S.Container>
   );
 };

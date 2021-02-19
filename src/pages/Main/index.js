@@ -91,7 +91,7 @@ const Main = () => {
                 options={type}
                 value={typeSelected}
                 onChange={(value) =>
-                  this.props.addSearch({ typeSelected: value })
+                  dispatch(addSearch({ typeSelected: value }))
                 }
                 placeholder={"Venda"}
                 isClearable={true}
@@ -101,7 +101,7 @@ const Main = () => {
                 options={city}
                 value={citySelected}
                 onChange={(value) =>
-                  this.props.addSearch({ citySelected: value })
+                  dispatch(addSearch({ citySelected: value }))
                 }
                 placeholder={"Cidade"}
                 isClearable={true}
@@ -111,7 +111,7 @@ const Main = () => {
                 options={definition}
                 value={realStateSelected}
                 onChange={(value) =>
-                  this.props.addSearch({ realStateSelected: value })
+                  dispatch(addSearch({ realStateSelected: value }))
                 }
                 placeholder={"Tipo do Imóvel"}
                 isClearable={true}
@@ -121,7 +121,7 @@ const Main = () => {
                 options={district}
                 value={districtSelected}
                 onChange={(value) =>
-                  this.props.addSearch({ districtSelected: value })
+                  dispatch(addSearch({ districtSelected: value }))
                 }
                 placeholder={"Bairro"}
                 isClearable={true}
