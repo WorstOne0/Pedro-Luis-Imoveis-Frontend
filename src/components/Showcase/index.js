@@ -8,12 +8,12 @@ import * as S from "./styles";
 
 import Select from "@atlaskit/select";
 
-import { FaSadTear } from "react-icons/fa";
+import { FaFileSignature, FaSadTear } from "react-icons/fa";
 import { MdLocationCity } from "react-icons/md";
 
 const POSTS = gql`
-  query {
-    posts {
+  query SearchPost($query: Search!) {
+    searchPost(query: $query) {
       id
       name
       type
@@ -54,15 +54,32 @@ const POSTS = gql`
 `;
 
 const Showcase = () => {
-  const { loading, error, data, refetch } = useQuery(POSTS);
-
-  const dispatch = useDispatch();
   const {
     typeSelected,
     citySelected,
     districtSelected,
     realStateSelected,
+    sort,
+    spotlight,
+    price,
+    area,
   } = useSelector((state) => state.search);
+
+  const { loading, error, data, refetch, setQueryData } = useQuery(POSTS, {
+    variables: {
+      query: {
+        typeSelected: typeSelected && typeSelected.value,
+        citySelected: citySelected && citySelected.value,
+        districtSelected:
+          districtSelected && districtSelected.map((value) => value.value),
+        realStateSelected: realStateSelected && realStateSelected.value,
+        sort,
+        spotlight,
+        price,
+        area,
+      },
+    },
+  });
 
   const [pages, setPages] = useState({
     page: 1,
@@ -79,11 +96,22 @@ const Showcase = () => {
 
   const goToPage = () => {};
 
-  const handleSubmit = () => {};
+  const handleSubmit = (event) => {
+    event.preventDefault();
 
-  useEffect(() => {
-    refetch();
-  }, [refetch]);
+    refetch({
+      query: {
+        typeSelected: typeSelected && typeSelected.value,
+        citySelected: citySelected && citySelected.value,
+        districtSelected: districtSelected.map((value) => value.value),
+        realStateSelected: realStateSelected && realStateSelected.value,
+        sort,
+        spotlight,
+        price,
+        area,
+      },
+    });
+  };
 
   console.log(data, loading, error);
 
@@ -96,19 +124,19 @@ const Showcase = () => {
             Imóveis
           </S.Title>
           <S.TitleDetails>
-            {!loading && data.posts.length} Imóveis
+            {/*!loading && data.searchPost.length*/} Imóveis
           </S.TitleDetails>
         </S.Header>
 
         {!loading ? (
-          data.posts.length === 0 ? (
+          data.searchPost.length === 0 ? (
             <S.Nothing>
               <FaSadTear className="Icon" />
               Desculpe, Não há resultados
             </S.Nothing>
           ) : (
             <S.Content>
-              {data.posts.map((item, index) => (
+              {data.searchPost.map((item, index) => (
                 <Card key={item._id} realEstate={item} delay={index} />
               ))}
             </S.Content>
