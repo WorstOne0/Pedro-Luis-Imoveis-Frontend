@@ -218,7 +218,7 @@ const SearchBar = ({ handleSubmit }) => {
                 </S.ValueSliderRight>
               </S.LabelSlider>
               <InputRange
-                minValue={50}
+                minValue={0}
                 maxValue={2500}
                 step={50}
                 formatLabel={(value) => ``}

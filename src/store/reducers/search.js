@@ -10,7 +10,7 @@ const initialState = {
     max: 1000000,
   },
   area: {
-    min: 50,
+    min: 0,
     max: 2500,
   },
 };
