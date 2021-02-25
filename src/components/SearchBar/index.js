@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import { addSearch } from "../../store/actions/search";
@@ -94,6 +94,10 @@ const SearchBar = ({ handleSubmit }) => {
       ascPrice: filterOrder.selectedPrice && !filterOrder.ascPrice,
     });
   };
+
+  useEffect(() => {
+    handleSortString();
+  }, [filterOrder]);
 
   const handleSortString = () => {
     const {

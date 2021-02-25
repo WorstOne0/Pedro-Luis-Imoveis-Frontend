@@ -9,6 +9,7 @@ import { InputText } from "../../components";
 
 import { BsArrowLeft } from "react-icons/bs";
 import { AiOutlineGoogle } from "react-icons/ai";
+import data from "../../data";
 
 const LOGIN = gql`
   mutation Login(
@@ -104,6 +105,10 @@ const Login = () => {
               backgroundName={"var(--color-primary)"}
             />
           </S.InputWrapper>
+
+          <S.Error>
+            {control.error ? "Usuario ou senha incorretos" : ""}
+          </S.Error>
 
           {/*<ReCAPTCHA
             sitekey={process.env.REACT_APP_RECAPTCHA_KEY}

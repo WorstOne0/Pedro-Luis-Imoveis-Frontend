@@ -52,10 +52,19 @@ export const InputWrapper = styled.div`
   margin-top: 2rem;
 `;
 
+export const Error = styled.div`
+  height: 20px;
+  width: 100%;
+
+  color: red;
+  font-size: 16px;
+  text-align: center;
+`;
+
 export const Button = styled.button`
   height: 5rem;
   width: 100%;
-  margin-top: 4rem;
+  margin-top: 3rem;
   border: 1px solid var(--color-primary-hover-lighter);
   border-radius: 0.8rem;
   background: transparent;

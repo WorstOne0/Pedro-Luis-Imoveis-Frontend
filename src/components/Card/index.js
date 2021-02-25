@@ -18,7 +18,7 @@ const Card = ({ realEstate, delay }) => {
     <S.Container delay={delay * 0.1}>
       <S.ContainerImg>
         <Link
-          to={`details/${realEstate._id}`}
+          to={`details/${realEstate.id}`}
           style={{
             width: "100%",
             textDecoration: "none",
@@ -38,7 +38,7 @@ const Card = ({ realEstate, delay }) => {
 
       <S.Description>
         <Link
-          to={`details/${realEstate._id}`}
+          to={`details/${realEstate.id}`}
           style={{
             width: "100%",
             textDecoration: "none",

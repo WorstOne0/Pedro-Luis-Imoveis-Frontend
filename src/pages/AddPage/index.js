@@ -194,13 +194,11 @@ const AddPage = () => {
         imagens: uploadedFiles.map((file) => ({
           name: file.file.name,
           key: file.id,
-          size: file.size,
           url: file.url,
         })),
         thumbnail: {
           name: thumbnail[0].file.name,
           key: thumbnail[0].id,
-          size: thumbnail[0].size,
           url: thumbnail[0].url,
         },
       },

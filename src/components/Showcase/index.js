@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useLayoutEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useQuery, useLazyQuery, gql } from "@apollo/client";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -12,43 +12,48 @@ import { FaFileSignature, FaSadTear } from "react-icons/fa";
 import { MdLocationCity } from "react-icons/md";
 
 const POSTS = gql`
-  query SearchPost($query: Search!) {
-    searchPost(query: $query) {
-      id
-      name
-      type
-      description
-      price
-      info {
-        area
-        sale
-        room
-        suite
-        garage
-        spotlight
-      }
-      infoAdd
-      address {
-        street
-        district
-        city
-        state
-        latitude
-        longitude
-      }
-      imagens {
+  query SearchPost($query: Search!, $page: Int!) {
+    searchPost(query: $query, page: $page) {
+      docs {
+        id
         name
-        key
-        url
-        size
+        type
+        description
+        price
+        info {
+          area
+          sale
+          room
+          suite
+          garage
+          spotlight
+        }
+        infoAdd
+        address {
+          street
+          district
+          city
+          state
+          latitude
+          longitude
+        }
+        imagens {
+          name
+          key
+          url
+        }
+        thumbnail {
+          name
+          key
+          url
+        }
+        createdAt
       }
-      thumbnail {
-        name
-        key
-        url
-        size
-      }
-      createdAt
+      totalDocs
+      totalPages
+      page
+      hasPrevPage
+      hasNextPage
     }
   }
 `;
@@ -64,8 +69,6 @@ const Showcase = () => {
     price,
     area,
   } = useSelector((state) => state.search);
-
-  const [isFetch, setIsFetch] = useState(false);
 
   const [searchPost, { loading, error, data }] = useLazyQuery(POSTS);
 
@@ -83,25 +86,12 @@ const Showcase = () => {
           price,
           area,
         },
+        page: 1,
       },
     });
   }, []);
 
-  /*const { loading, error, data, refetch } = useQuery(POSTS, {
-    variables: {
-      query: {
-        typeSelected: typeSelected && typeSelected.value,
-        citySelected: citySelected && citySelected.value,
-        districtSelected:
-          districtSelected && districtSelected.map((value) => value.value),
-        realStateSelected: realStateSelected && realStateSelected.value,
-        sort,
-        spotlight,
-        price,
-        area,
-      },
-    },
-  });*/
+  console.log(data);
 
   const [pages, setPages] = useState({
     page: 1,
@@ -112,14 +102,8 @@ const Showcase = () => {
 
   const myRef = useRef();
 
-  const prevPage = () => {};
-
-  const nextPage = () => {};
-
-  const goToPage = () => {};
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const prevPage = () => {
+    if (!data.searchPost.hasPrevPage) return;
 
     searchPost({
       variables: {
@@ -134,11 +118,56 @@ const Showcase = () => {
           price,
           area,
         },
+        page: data.searchPost.page - 1,
       },
     });
   };
 
-  console.log(data, loading, error);
+  const nextPage = () => {
+    if (!data.searchPost.hasNextPage) return;
+
+    searchPost({
+      variables: {
+        query: {
+          typeSelected: typeSelected && typeSelected.value,
+          citySelected: citySelected && citySelected.value,
+          districtSelected:
+            districtSelected && districtSelected.map((value) => value.value),
+          realStateSelected: realStateSelected && realStateSelected.value,
+          sort,
+          spotlight,
+          price,
+          area,
+        },
+        page: data.searchPost.page + 1,
+      },
+    });
+  };
+
+  const goToPage = () => {};
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    console.log(sort);
+
+    searchPost({
+      variables: {
+        query: {
+          typeSelected: typeSelected && typeSelected.value,
+          citySelected: citySelected && citySelected.value,
+          districtSelected:
+            districtSelected && districtSelected.map((value) => value.value),
+          realStateSelected: realStateSelected && realStateSelected.value,
+          sort,
+          spotlight,
+          price,
+          area,
+        },
+        page: 1,
+      },
+    });
+  };
 
   return (
     <S.Container>
@@ -149,19 +178,19 @@ const Showcase = () => {
             Imóveis
           </S.Title>
           <S.TitleDetails>
-            {/*data && data.searchPost.length*/} Imóveis
+            {data && data.searchPost.totalDocs} Imóveis
           </S.TitleDetails>
         </S.Header>
 
         {data ? (
-          data.searchPost.length === 0 ? (
+          data.searchPost.docs.length === 0 ? (
             <S.Nothing>
               <FaSadTear className="Icon" />
               Desculpe, Não há resultados
             </S.Nothing>
           ) : (
             <S.Content>
-              {data.searchPost.map((item, index) => (
+              {data.searchPost.docs.map((item, index) => (
                 <Card key={item._id} realEstate={item} delay={index} />
               ))}
             </S.Content>
