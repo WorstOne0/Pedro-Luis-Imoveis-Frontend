@@ -99,15 +99,16 @@ export const MainBlock = styled.div`
   flex-direction: column;
 
   .Gallery {
-    height: 500px;
+    height: 65vh;
     width: 100%;
 
     cursor: pointer;
   }
 
   .Item {
-    height: 500px;
+    height: 65vh;
     width: 100%;
+    border-radius: 5px;
   }
 `;
 
