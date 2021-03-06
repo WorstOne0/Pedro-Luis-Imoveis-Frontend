@@ -209,7 +209,7 @@ export const CarouselButton = styled.button`
 `;
 
 export const MapsContainer = styled.div`
-  height: 500px;
+  height: 65vh;
   width: 100%;
 `;
 

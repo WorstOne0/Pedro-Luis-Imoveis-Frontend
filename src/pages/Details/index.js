@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 import * as S from "./styles";
 
-import { NavBar, Footer, Loading } from "../../components";
+import { NavBar, Footer, Loading, Maps } from "../../components";
 
 import Lightbox from "fslightbox-react";
 
@@ -182,18 +182,18 @@ const Details = ({ match }) => {
                   <S.MainTitle column={true}>
                     Localização
                     <S.MainSubtitle>
-                      {data.getPost.address.street} -{" "}
-                      {data.getPost.address.district} -{" "}
+                      {data.getPost.address.street} -
+                      {data.getPost.address.district} -
                       {data.getPost.address.city},{data.getPost.address.state}
                     </S.MainSubtitle>
                   </S.MainTitle>
 
-                  {/*<S.MapsContainer>
+                  <S.MapsContainer>
                     <Maps
-                      lat={parseFloat(data.getPost.address.latitude)}
-                      lng={parseFloat(data.getPost.address.longitude)}
+                      latitute={parseFloat(data.getPost.address.latitude)}
+                      longitude={parseFloat(data.getPost.address.longitude)}
                     />
-                  </S.MapsContainer>*/}
+                  </S.MapsContainer>
                 </S.MainBlock>
 
                 {data.getPost.infoAdd.length > 0 && (

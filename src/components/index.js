@@ -10,6 +10,7 @@ import DropZone from "./DropZone";
 import Gallery from "./Gallery";
 import Showcase from "./Showcase";
 import SearchBar from "./SearchBar";
+import Maps from "./Maps";
 
 export {
   NavBar,
@@ -24,4 +25,5 @@ export {
   Gallery,
   Showcase,
   SearchBar,
+  Maps,
 };

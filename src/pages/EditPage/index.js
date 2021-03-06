@@ -38,6 +38,46 @@ const LOGGED = gql`
   }
 `;
 
+const GET_POST = gql`
+  query Post($postId: ID!) {
+    getPost(postId: $postId) {
+      id
+      name
+      type
+      description
+      price
+      info {
+        area
+        sale
+        room
+        suite
+        garage
+        spotlight
+      }
+      infoAdd
+      address {
+        street
+        district
+        city
+        state
+        latitude
+        longitude
+      }
+      imagens {
+        name
+        key
+        url
+      }
+      thumbnail {
+        name
+        key
+        url
+      }
+      createdAt
+    }
+  }
+`;
+
 const ADD_POST = gql`
   mutation AddPost(
     $name: String!
@@ -66,10 +106,72 @@ const ADD_POST = gql`
   }
 `;
 
-const AddPage = () => {
+const EditPage = ({ match }) => {
   const history = useHistory();
 
-  const { loading, data, refetch } = useQuery(LOGGED);
+  const { loading: loadingUser, data: user } = useQuery(LOGGED);
+  const { loading, data } = useQuery(GET_POST, {
+    variables: { postId: match.params.id },
+    onCompleted: (data) => {
+      const {
+        name,
+        description,
+        type,
+        price,
+        info,
+        address,
+        infoAdd,
+        imagens,
+        thumbnail: thumb,
+      } = data.getPost;
+
+      setText({
+        name: name,
+        definitionSelected: {
+          value: type,
+          label: type,
+        },
+        description: description,
+        price: price,
+        area: info.area,
+        room: info.room,
+        suite: info.suite,
+        garage: info.garage,
+        typeSelected: {
+          value: info.sale,
+          label: info.sale,
+        },
+        street: address.street,
+        districtSelected: {
+          value: address.district,
+          label: address.district,
+        },
+        latitude: address.latitude,
+        longitude: address.longitude,
+        spotlight: info.spotlight,
+      });
+
+      setUploadedFiles(
+        imagens.map((imagem) => ({
+          name: imagem.name,
+          preview: imagem.url,
+          url: imagem.url,
+        }))
+      );
+
+      setThumbnail([
+        ...thumbnail,
+        {
+          name: thumb.name,
+          preview: thumb.url,
+          url: thumb.url,
+        },
+      ]);
+
+      setUpload(true);
+      setUploadThumb(true);
+    },
+  });
   const [addPost] = useMutation(ADD_POST);
 
   const [text, setText] = useState({
@@ -103,10 +205,6 @@ const AddPage = () => {
     isUploading: false,
     isUploaded: false,
   });
-
-  useEffect(() => {
-    refetch();
-  }, [refetch]);
 
   useEffect(() => {
     if (uploadedFiles.length === 0) setUpload(false);
@@ -356,7 +454,9 @@ const AddPage = () => {
     <>
       {loading ? (
         <Loading />
-      ) : data.getLoggedUser === null ? (
+      ) : loadingUser ? (
+        <Loading />
+      ) : user.getLoggedUser === null ? (
         <S.Error>You Shall not Pass</S.Error>
       ) : (
         <>
@@ -722,4 +822,4 @@ const AddPage = () => {
   );
 };
 
-export default AddPage;
+export default EditPage;

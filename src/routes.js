@@ -15,6 +15,7 @@ import {
   AddPage,
   Details,
   Contact,
+  EditPage,
 } from "./pages";
 
 export default class Routes extends Component {
@@ -30,6 +31,7 @@ export default class Routes extends Component {
             <Route path="/login" component={Login} />
             <Route path="/admin" exact component={Admin} />
             <Route path="/admin/add" component={AddPage} />
+            <Route path="/admin/edit/:id" component={EditPage} />
           </BrowserRouter>
         </Provider>
       </ApolloProvider>

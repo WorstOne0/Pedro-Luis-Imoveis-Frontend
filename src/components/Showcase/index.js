@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useQuery, useLazyQuery, gql } from "@apollo/client";
-import { useDispatch, useSelector } from "react-redux";
+import { useLazyQuery, gql } from "@apollo/client";
+import { useSelector } from "react-redux";
 
 import { Card, Loading, SearchBar } from "../index";
 
@@ -91,8 +91,6 @@ const Showcase = () => {
     });
   }, []);
 
-  console.log(data);
-
   const [pages, setPages] = useState({
     page: 1,
     total: 1,
@@ -101,6 +99,13 @@ const Showcase = () => {
   });
 
   const myRef = useRef();
+
+  let arrayPages = [];
+  if (data) {
+    for (let i = 1; i <= data.searchPost.totalPages; i++) {
+      arrayPages.push({ value: i, label: i });
+    }
+  }
 
   const prevPage = () => {
     if (!data.searchPost.hasPrevPage) return;
@@ -144,12 +149,27 @@ const Showcase = () => {
     });
   };
 
-  const goToPage = () => {};
+  const goToPage = (page) => {
+    searchPost({
+      variables: {
+        query: {
+          typeSelected: typeSelected && typeSelected.value,
+          citySelected: citySelected && citySelected.value,
+          districtSelected:
+            districtSelected && districtSelected.map((value) => value.value),
+          realStateSelected: realStateSelected && realStateSelected.value,
+          sort,
+          spotlight,
+          price,
+          area,
+        },
+        page,
+      },
+    });
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    console.log(sort);
 
     searchPost({
       variables: {
@@ -199,24 +219,31 @@ const Showcase = () => {
           <Loading />
         )}
 
-        <S.Page>
-          <S.PageButton onClick={prevPage} page={pages.hasPrev}>
-            Anterior
-          </S.PageButton>
-          {/*<label>
-            <Select
-              styles={S.customStyles}
-              options={arrayPages}
-              value={{ value: pages.page, label: pages.page }}
-              onChange={(value) => setPages({ ...pages, page: value.value })}
-            />
-            de {totalPages}
-          </label>*/}
+        {data && (
+          <S.Page>
+            <S.PageButton onClick={prevPage} page={data.searchPost.hasPrevPage}>
+              Anterior
+            </S.PageButton>
+            {
+              <label>
+                <Select
+                  styles={S.customStyles}
+                  options={arrayPages}
+                  value={{
+                    value: data.searchPost.page,
+                    label: data.searchPost.page,
+                  }}
+                  onChange={(value) => goToPage(value.value)}
+                />
+                de {data.searchPost.totalPages}
+              </label>
+            }
 
-          <S.PageButton onClick={nextPage} page={pages.hasNext}>
-            Proximo
-          </S.PageButton>
-        </S.Page>
+            <S.PageButton onClick={nextPage} page={data.searchPost.hasNextPage}>
+              Proximo
+            </S.PageButton>
+          </S.Page>
+        )}
       </S.ContainerShowcase>
 
       <SearchBar handleSubmit={handleSubmit} />

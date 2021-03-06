@@ -55,7 +55,7 @@ export const Filter = styled.div`
 `;
 
 export const ContainerSelect = styled.form`
-  height: 200px;
+  height: 250px;
   width: 100%;
 
   display: flex;
@@ -64,20 +64,20 @@ export const ContainerSelect = styled.form`
   flex-direction: column;
 
   @media only screen and (max-width: 1300px) {
-    height: 100px;
+    height: 110px;
 
     flex-direction: row;
   }
 
   @media only screen and (max-width: 500px) {
-    height: 200px;
+    height: 250px;
 
     flex-direction: column;
   }
 `;
 
 export const DivisorLeft = styled.div`
-  height: 100px;
+  height: 125px;
   width: 100%;
 
   display: flex;
@@ -101,7 +101,7 @@ export const DivisorLeft = styled.div`
 `;
 
 export const DivisorRight = styled.div`
-  height: 100px;
+  height: 125px;
   width: 100%;
 
   display: flex;
@@ -291,8 +291,8 @@ export const Buttons = styled.button`
 `;
 
 export const Search = styled.button`
-  height: 45px;
-  width: 200px;
+  height: 60px;
+  width: 90%;
   margin-bottom: 10px;
   border: 1px solid #003c8f;
   border-radius: 5px;
@@ -326,9 +326,11 @@ export const customStyles = {
   control: (provided, state) => ({
     ...provided,
     maxHeight: 60,
+    height: 55,
     width: "100%",
+    padding: "0 10px",
     background: "transparent",
-    border: "1px solid #003c8f",
+    border: "1px solid var(--color-primary)",
     borderRadius: "5px",
     color: "white",
     "&:hover": {

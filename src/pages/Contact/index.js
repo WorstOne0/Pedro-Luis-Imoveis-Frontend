@@ -82,7 +82,7 @@ function Contact() {
 
         <S.Form onSubmit={handleSubmit}>
           {control.loading ? (
-            <Loading color="#003c8f" svg="#fff" />
+            <Loading color="var(--color-primary)" svg="#fff" />
           ) : control.error ? (
             <S.Ok>
               <AiFillCloseCircle className="Reject" />
@@ -175,71 +175,3 @@ function Contact() {
 }
 
 export default Contact;
-
-/**{this.state.isClicked ? (
-            this.state.isUploaded ? (
-              <S.Ok>
-                <FaCheckCircle className="Icon" />
-                Email Enviado
-              </S.Ok>
-            ) : (
-              <Loading color="#003c8f" svg="#fff" />
-            )
-          ) : (
-            <>
-              <S.FormTitle>Envie um E-mail</S.FormTitle>
-
-              <S.Wrapper>
-                <S.ContainerInput>
-                  <FaUserCircle />
-                  <S.Input
-                    placeholder="Nome"
-                    name="firstName"
-                    value={firstName}
-                    onChange={this.handleInputChange}
-                    autoComplete="none"
-                  />
-                </S.ContainerInput>
-                <S.ContainerInput>
-                  <MdTextsms />
-                  <S.Input
-                    placeholder="Assunto"
-                    name="assunto"
-                    value={assunto}
-                    onChange={this.handleInputChange}
-                    autoComplete="none"
-                  />
-                </S.ContainerInput>
-
-                <S.ContainerInput>
-                  <MdMailOutline />
-                  <S.Input
-                    placeholder="E-mail"
-                    name="email"
-                    value={email}
-                    onChange={this.handleInputChange}
-                    autoComplete="none"
-                  />
-                </S.ContainerInput>
-                <S.ContainerInput>
-                  <MdPhone />
-                  <S.Input
-                    placeholder="Telefone"
-                    name="tel"
-                    value={tel}
-                    onChange={this.handleInputChange}
-                    autoComplete="none"
-                  />
-                </S.ContainerInput>
-
-                <S.TextArea
-                  placeholder="Pergunte-nos algo"
-                  name="text"
-                  value={text}
-                  onChange={this.handleInputChange}
-                  autoComplete="off"
-                />
-                <S.Submit type="submit">Enviar</S.Submit>
-              </S.Wrapper>
-            </>
-          )} */

@@ -57,7 +57,8 @@ const SearchBar = ({ handleSubmit }) => {
 
   const handleOptionDisplay = () => {
     setDisplay({
-      height: display.height === "0px" ? `${(screen * 40) / 100}px` : "0px",
+      height:
+        display.height === "0px" ? `${(screen.height * 43) / 100}px` : "0px",
       iconRotate: display.iconRotate === "0deg" ? "180deg" : "0deg",
     });
   };
@@ -188,7 +189,7 @@ const SearchBar = ({ handleSubmit }) => {
               }}
             />
           </S.OptionsTitle>
-          <S.Options height={display.height}>
+          <S.Options height={`calc(${display.height} - 25px)`}>
             <S.DetailsSlider>
               <S.LabelSlider>
                 <S.ValueSliderLeft>
