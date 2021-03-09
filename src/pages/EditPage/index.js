@@ -12,7 +12,7 @@ import s3 from "../../services/aws-s3";
 import * as S from "./styles";
 
 import Select from "@atlaskit/select";
-import "react-circular-progressbar/dist/styles.css";
+import Modal from "react-awesome-modal";
 
 import {
   FaChartArea,
@@ -78,8 +78,9 @@ const GET_POST = gql`
   }
 `;
 
-const ADD_POST = gql`
-  mutation AddPost(
+const UPDATE_POST = gql`
+  mutation UpdatePost(
+    $postId: ID!
     $name: String!
     $type: String!
     $description: String
@@ -90,7 +91,8 @@ const ADD_POST = gql`
     $imagens: [ImageInput!]
     $thumbnail: ImageInput!
   ) {
-    addPost(
+    updatePost(
+      postId: $postId
       name: $name
       type: $type
       description: $description
@@ -106,11 +108,17 @@ const ADD_POST = gql`
   }
 `;
 
+const DELETE_POST = gql`
+  mutation DeletePost($postId: ID!) {
+    deletePost(postId: $postId)
+  }
+`;
+
 const EditPage = ({ match }) => {
   const history = useHistory();
 
   const { loading: loadingUser, data: user } = useQuery(LOGGED);
-  const { loading, data } = useQuery(GET_POST, {
+  const { loading } = useQuery(GET_POST, {
     variables: { postId: match.params.id },
     onCompleted: (data) => {
       const {
@@ -156,6 +164,8 @@ const EditPage = ({ match }) => {
           name: imagem.name,
           preview: imagem.url,
           url: imagem.url,
+          key: imagem.key,
+          id: imagem.key,
         }))
       );
 
@@ -165,14 +175,15 @@ const EditPage = ({ match }) => {
           name: thumb.name,
           preview: thumb.url,
           url: thumb.url,
+          key: thumb.key,
+          id: thumb.key,
         },
       ]);
-
-      setUpload(true);
-      setUploadThumb(true);
     },
   });
-  const [addPost] = useMutation(ADD_POST);
+
+  const [updatePost] = useMutation(UPDATE_POST);
+  const [deletePost] = useMutation(DELETE_POST);
 
   const [text, setText] = useState({
     name: "",
@@ -204,12 +215,14 @@ const EditPage = ({ match }) => {
     formIsValid: false,
     isUploading: false,
     isUploaded: false,
+    modal: false,
+    modalInput: "",
   });
 
   useEffect(() => {
-    if (uploadedFiles.length === 0) setUpload(false);
+    uploadedFiles.length === 0 ? setUpload(false) : setUpload(true);
 
-    if (thumbnail.length === 0) setUploadThumb(false);
+    thumbnail.length === 0 ? setUploadThumb(false) : setUploadThumb(true);
   }, [uploadedFiles, thumbnail]);
 
   useEffect(() => {
@@ -217,15 +230,19 @@ const EditPage = ({ match }) => {
   }, [text]);
 
   const uploadToS3 = async () => {
-    const res = await s3.uploadFile(
-      thumbnail[0].file,
-      `${Date.now()}${thumbnail[0].file.name}`
-    );
-    thumbnail[0].url = res.location;
-    thumbnail[0].id = res.key;
+    if (thumbnail[0].url === null) {
+      const res = await s3.uploadFile(
+        thumbnail[0].file,
+        `${Date.now()}${thumbnail[0].file.name}`
+      );
+      thumbnail[0].url = res.location;
+      thumbnail[0].id = res.key;
+    }
 
     return await Promise.all(
       uploadedFiles.map(async (file) => {
+        if (file.url !== null) return;
+
         const res = await s3.uploadFile(
           file.file,
           `${Date.now()}${file.file.name}`
@@ -411,8 +428,9 @@ const EditPage = ({ match }) => {
 
     await uploadToS3();
 
-    const { data } = await addPost({
+    const { data } = await updatePost({
       variables: {
+        postId: match.params.id,
         name,
         type: definitionSelected.value,
         description,
@@ -435,19 +453,33 @@ const EditPage = ({ match }) => {
           longitude: parseInt(longitude),
         },
         imagens: uploadedFiles.map((file) => ({
-          name: file.file.name,
-          key: file.id,
+          name: file.file ? file.file.name : file.name,
+          key: file.id ? file.id : file.key,
           url: file.url,
         })),
         thumbnail: {
-          name: thumbnail[0].file.name,
-          key: thumbnail[0].id,
+          name: thumbnail[0].file ? thumbnail[0].file.name : thumbnail[0].name,
+          key: thumbnail[0].id ? thumbnail[0].id : thumbnail[0].key,
           url: thumbnail[0].url,
         },
       },
     });
 
     setControl({ ...control, isUploaded: true, isUploading: false });
+  };
+
+  const handleDeleteDocument = async () => {
+    await deletePost({ variables: { postId: match.params.id } });
+
+    history.go(-2);
+  };
+
+  const openModal = () => {
+    setControl({ ...control, modal: true });
+  };
+
+  const closeModal = () => {
+    setControl({ ...control, modal: false, modalInput: "" });
   };
 
   return (
@@ -466,7 +498,7 @@ const EditPage = ({ match }) => {
                 <S.GoBack onClick={() => history.goBack()}>
                   <MdKeyboardBackspace />
                 </S.GoBack>
-                Adicionar um Imóvel
+                Editar um Imóvel
               </S.TitleLeft>
 
               <S.Form onSubmit={handleSubmit} id="form">
@@ -752,6 +784,8 @@ const EditPage = ({ match }) => {
                     <Gallery
                       uploadedFiles={thumbnail}
                       setUploadedFiles={setThumbnail}
+                      thumb={true}
+                      postId={match.params.id}
                     />
                   ) : (
                     <DropZone
@@ -770,6 +804,7 @@ const EditPage = ({ match }) => {
                     <Gallery
                       uploadedFiles={uploadedFiles}
                       setUploadedFiles={setUploadedFiles}
+                      postId={match.params.id}
                     />
                   ) : (
                     <DropZone
@@ -781,6 +816,54 @@ const EditPage = ({ match }) => {
                     />
                   )}
                 </S.Wrapper>
+
+                <S.DeleteButton type="button" onClick={openModal}>
+                  Excluir Imóvel
+                </S.DeleteButton>
+                <Modal
+                  visible={control.modal}
+                  height="300"
+                  width="500"
+                  effect="fadeInUp"
+                  onClickAway={() => closeModal()}
+                >
+                  <S.PopUpDelete>
+                    <S.DeleteTitle>Você tem Certeza?</S.DeleteTitle>
+                    <InputText
+                      value={control.modalInput}
+                      setValue={(event) => {
+                        event.preventDefault();
+
+                        setControl({
+                          ...control,
+                          modalInput: event.target.value,
+                        });
+                      }}
+                      name="Para Confirmar Digite 'Excluir'"
+                      borderColor={"var(--color-secundary)"}
+                      borderColorHover={"var(--color-secundary)"}
+                      backgroundName={"var(--color-white)"}
+                      color={"var(--color-black)"}
+                      colorLabel={"var(--color-secundary)"}
+                      required={false}
+                    />
+
+                    <div className="Row">
+                      <S.CancelButton type="button" onClick={closeModal}>
+                        Cancelar
+                      </S.CancelButton>
+                      <S.ConfirmButton
+                        type="button"
+                        disabled={
+                          control.modalInput === "Excluir" ? false : true
+                        }
+                        onClick={() => handleDeleteDocument()}
+                      >
+                        Confirmar
+                      </S.ConfirmButton>
+                    </div>
+                  </S.PopUpDelete>
+                </Modal>
               </S.Form>
             </S.Left>
 

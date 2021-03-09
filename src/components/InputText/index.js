@@ -16,6 +16,7 @@ const InputText = ({
   colorLabel = "var(--color-white)",
   onFocus,
   onBlur,
+  required = true,
 }) => {
   return (
     <Container margin={margin} backgroundName={backgroundName}>
@@ -24,7 +25,7 @@ const InputText = ({
         type={type}
         className="Input"
         autoComplete="off"
-        required
+        required={required}
         onChange={setValue}
         borderColor={borderColor}
         borderColorHover={borderColorHover}

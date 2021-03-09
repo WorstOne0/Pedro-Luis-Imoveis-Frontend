@@ -57,7 +57,7 @@ export const TitleLeft = styled.h1`
   margin-top: 15px;
   padding: 15px;
 
-  color: #003c8f;
+  color: var(--color-primary);
   font-size: 34px;
   text-align: center;
 
@@ -81,7 +81,7 @@ export const Form = styled.form`
 export const Section = styled.h1`
   margin-top: 35px;
 
-  color: #003c8f;
+  color: var(--color-primary);
   font-size: 24px;
 
   position: relative;
@@ -116,7 +116,7 @@ export const StyleInput = styled.div`
   align-items: center;
 
   .Icon {
-    color: #003c8f;
+    color: var(--color-primary);
     font-size: 18px;
   }
 `;
@@ -124,7 +124,7 @@ export const StyleInput = styled.div`
 export const CompInput = styled.div`
   padding-left: 10px;
 
-  color: #003c8f;
+  color: var(--color-primary);
   font-size: 14px;
   font-weight: bold;
 `;
@@ -144,7 +144,7 @@ export const Input = styled.input`
   font-size: 18px;
 
   ::placeholder {
-    color: #003c8f;
+    color: var(--color-primary);
     font-size: 18px;
   }
 `;
@@ -197,14 +197,14 @@ export const InputFile = styled.label`
   width: 100%;
   margin-top: 35px;
   padding: 0 20px;
-  border: 1px solid #003c8f;
+  border: 1px solid var(--color-primary);
   border-radius: 5px;
 
   display: flex;
   justify-content: flex-start;
   align-items: center;
 
-  color: #003c8f;
+  color: var(--color-primary);
   font-size: 18px;
 
   cursor: pointer;
@@ -219,14 +219,14 @@ export const StyleCheckBox = styled.div`
   width: 100%;
   margin-top: 35px;
   padding: 0 10px;
-  border: 1px solid #003c8f;
+  border: 1px solid var(--color-primary);
   border-radius: 5px;
 
   display: flex;
   justify-content: center;
   align-items: center;
 
-  color: #003c8f;
+  color: var(--color-primary);
   font-size: 18px;
 
   .Checked {
@@ -234,7 +234,7 @@ export const StyleCheckBox = styled.div`
 
     display: ${(props) => props.children[0].props.check};
 
-    color: #003c8f;
+    color: var(--color-primary);
     font-size: 18px;
 
     cursor: pointer;
@@ -245,7 +245,7 @@ export const StyleCheckBox = styled.div`
 
     display: ${(props) => props.children[1].props.check};
 
-    color: #003c8f;
+    color: var(--color-primary);
     font-size: 18px;
 
     cursor: pointer;
@@ -257,7 +257,7 @@ export const TextArea = styled.textarea`
   width: 100%;
   margin-top: 35px;
   padding: 20px;
-  border: 1px solid #003c8f;
+  border: 1px solid var(--color-primary);
   border-radius: 5px;
   background: transparent;
 
@@ -270,7 +270,7 @@ export const TextArea = styled.textarea`
   resize: none;
 
   ::placeholder {
-    color: #003c8f;
+    color: var(--color-primary);
     font-size: 18px;
   }
 `;
@@ -299,7 +299,7 @@ export const ImgContainer = styled.div`
   ::-webkit-scrollbar-thumb {
     border-radius: 5px;
     border: 1px solid #f5f5f5;
-    background: #003c8f;
+    background: var(--color-primary);
   }
 `;
 
@@ -356,7 +356,7 @@ export const ImgWithProgress = styled.div`
     left: 10px;
     bottom: 10px;
 
-    color: #003c8f;
+    color: var(--color-primary);
   }
 `;
 
@@ -368,7 +368,7 @@ export const ImgUpload = styled.img`
 export const Right = styled.div`
   height: 100%;
   width: 50%;
-  background: #003c8f;
+  background: var(--color-primary);
 
   display: flex;
   justify-content: center;
@@ -451,7 +451,7 @@ export const Submit = styled.button`
   cursor: pointer;
 
   :hover {
-    color: #003c8f;
+    color: var(--color-primary);
     background: #fff;
   }
 `;
@@ -492,13 +492,13 @@ export const customStyles = {
     color: "var(--color-primary)",
     fontSize: 16,
     "&:hover": {
-      borderColor: "#003c8f !important",
+      borderColor: "var(--color-primary) !important",
       background: "transparent !important",
     },
     "@media only screen and (max-width: 1300px)": {
       background: "#f5f5f5",
       border: "1px solid #f5f5f5",
-      color: "#003c8f",
+      color: "var(--color-primary)",
       "&:hover": {
         borderColor: "#f5f5f5 !important",
       },
@@ -562,13 +562,13 @@ export const selectWithoutBorder = {
     color: "var(--color-primary)",
     fontSize: 16,
     "&:hover": {
-      borderColor: "#003c8f !important",
+      borderColor: "var(--color-primary) !important",
       background: "transparent !important",
     },
     "@media only screen and (max-width: 1300px)": {
       background: "#f5f5f5",
       border: "1px solid #f5f5f5",
-      color: "#003c8f",
+      color: "var(--color-primary)",
       "&:hover": {
         borderColor: "#f5f5f5 !important",
       },
@@ -627,7 +627,7 @@ export const selectWithoutBorder = {
     border: "1px solid var(--color-primary)",
     borderRadius: "5px",
     background: "#fff",
-    color: "#003c8f",
+    color: "var(--color-primary)",
   }),
   valueContainer: (provided, state) => ({
     ...provided,
@@ -649,7 +649,7 @@ export const selectWithoutBorder = {
   }),
   placeholder: (provided, state) => ({
     ...provided,
-    color: "#003c8f",
+    color: "var(--color-primary)",
   }),
   singleValue: (provided, state) => ({
     ...provided,

@@ -72,6 +72,7 @@ const LOGGED = gql`
 const Details = ({ match }) => {
   const { loading, data, error } = useQuery(POST, {
     variables: { postId: match.params.id },
+    fetchPolicy: "network-only",
   });
 
   const { data: admin, refetch } = useQuery(LOGGED, {
@@ -182,8 +183,8 @@ const Details = ({ match }) => {
                   <S.MainTitle column={true}>
                     Localização
                     <S.MainSubtitle>
-                      {data.getPost.address.street} -
-                      {data.getPost.address.district} -
+                      {data.getPost.address.street} -{" "}
+                      {data.getPost.address.district} -{" "}
                       {data.getPost.address.city},{data.getPost.address.state}
                     </S.MainSubtitle>
                   </S.MainTitle>

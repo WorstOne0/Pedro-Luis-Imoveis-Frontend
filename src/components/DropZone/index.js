@@ -59,6 +59,7 @@ const DropZone = ({
           id: uniqueId(),
           size: filesize(file.size),
           preview: URL.createObjectURL(file),
+          url: null,
         })),
       ]);
       setUpload(true);
