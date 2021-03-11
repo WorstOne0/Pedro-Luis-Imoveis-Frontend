@@ -541,16 +541,19 @@ const AddPage = () => {
                 </S.ContainerDetails>
 
                 <S.StyleCheckBox>
-                  <FaStar
-                    className="Checked"
-                    check={"flex"}
-                    onClick={() => this.setState({ destaque: false })}
-                  />
-                  <FaRegStar
-                    className="Unchecked"
-                    check={"none"}
-                    onClick={() => this.setState({ destaque: true })}
-                  />
+                  {text.spotlight ? (
+                    <FaStar
+                      className="Checked"
+                      check={"flex"}
+                      onClick={() => setText({ ...text, spotlight: false })}
+                    />
+                  ) : (
+                    <FaRegStar
+                      className="Unchecked"
+                      check={"none"}
+                      onClick={() => setText({ ...text, spotlight: true })}
+                    />
+                  )}
                   Destaque
                 </S.StyleCheckBox>
 
@@ -667,10 +670,19 @@ const AddPage = () => {
 
                 <S.Wrapper>
                   {upload ? (
-                    <Gallery
-                      uploadedFiles={uploadedFiles}
-                      setUploadedFiles={setUploadedFiles}
-                    />
+                    <S.Column>
+                      <Gallery
+                        uploadedFiles={uploadedFiles}
+                        setUploadedFiles={setUploadedFiles}
+                      />
+                      <DropZone
+                        uploadedFiles={uploadedFiles}
+                        setUploadedFiles={setUploadedFiles}
+                        setUpload={setUpload}
+                        multiple={true}
+                        light={true}
+                      />
+                    </S.Column>
                   ) : (
                     <DropZone
                       text="Arraste sua imagem aqui"

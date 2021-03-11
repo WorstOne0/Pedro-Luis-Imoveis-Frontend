@@ -79,7 +79,7 @@ export const ContentLight = styled.div`
         ? "green"
         : props.isDragReject
         ? "red"
-        : "var(--color-darker)"};
+        : "var(--color-primary)"};
 
   display: flex;
   justify-content: center;

@@ -214,6 +214,13 @@ export const InputFile = styled.label`
   }
 `;
 
+export const Column = styled.div`
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+`;
+
 export const StyleCheckBox = styled.div`
   height: 50px;
   width: 100%;
@@ -232,8 +239,6 @@ export const StyleCheckBox = styled.div`
   .Checked {
     margin-right: 5px;
 
-    display: ${(props) => props.children[0].props.check};
-
     color: var(--color-primary);
     font-size: 18px;
 
@@ -242,8 +247,6 @@ export const StyleCheckBox = styled.div`
 
   .Unchecked {
     margin-right: 5px;
-
-    display: ${(props) => props.children[1].props.check};
 
     color: var(--color-primary);
     font-size: 18px;

@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useQuery, useMutation, gql } from "@apollo/client";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+
+import { addTodo } from "../../store/actions/todoList";
 
 import { Loading, InputText, ToDo, DropZone, Gallery } from "../../components";
 
@@ -116,9 +118,10 @@ const DELETE_POST = gql`
 
 const EditPage = ({ match }) => {
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const { loading: loadingUser, data: user } = useQuery(LOGGED);
-  const { loading } = useQuery(GET_POST, {
+  const { loading, data } = useQuery(GET_POST, {
     variables: { postId: match.params.id },
     onCompleted: (data) => {
       const {
@@ -673,16 +676,19 @@ const EditPage = ({ match }) => {
                 </S.ContainerDetails>
 
                 <S.StyleCheckBox>
-                  <FaStar
-                    className="Checked"
-                    check={"flex"}
-                    onClick={() => this.setState({ destaque: false })}
-                  />
-                  <FaRegStar
-                    className="Unchecked"
-                    check={"none"}
-                    onClick={() => this.setState({ destaque: true })}
-                  />
+                  {text.spotlight ? (
+                    <FaStar
+                      className="Checked"
+                      check={"flex"}
+                      onClick={() => setText({ ...text, spotlight: false })}
+                    />
+                  ) : (
+                    <FaRegStar
+                      className="Unchecked"
+                      check={"none"}
+                      onClick={() => setText({ ...text, spotlight: true })}
+                    />
+                  )}
                   Destaque
                 </S.StyleCheckBox>
 
@@ -775,7 +781,7 @@ const EditPage = ({ match }) => {
 
                 <S.Section>Topicos Adicionais</S.Section>
 
-                <ToDo />
+                <ToDo initialState={data.getPost.infoAdd} />
 
                 <S.Section>Thumbnail</S.Section>
 
@@ -801,11 +807,20 @@ const EditPage = ({ match }) => {
 
                 <S.Wrapper>
                   {upload ? (
-                    <Gallery
-                      uploadedFiles={uploadedFiles}
-                      setUploadedFiles={setUploadedFiles}
-                      postId={match.params.id}
-                    />
+                    <S.Column>
+                      <Gallery
+                        uploadedFiles={uploadedFiles}
+                        setUploadedFiles={setUploadedFiles}
+                        postId={match.params.id}
+                      />
+                      <DropZone
+                        uploadedFiles={uploadedFiles}
+                        setUploadedFiles={setUploadedFiles}
+                        setUpload={setUpload}
+                        multiple={true}
+                        light={true}
+                      />
+                    </S.Column>
                   ) : (
                     <DropZone
                       text="Arraste sua imagem aqui"

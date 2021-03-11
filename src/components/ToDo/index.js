@@ -18,7 +18,7 @@ import {
 import { FaPlus } from "react-icons/fa";
 import { MdClose } from "react-icons/md";
 
-const ToDo = () => {
+const ToDo = ({ initialState = [] }) => {
   const addList = (event) => {
     event.preventDefault();
 
@@ -37,7 +37,7 @@ const ToDo = () => {
 
   const dispatch = useDispatch();
 
-  const [list, setList] = useState([]);
+  const [list, setList] = useState(initialState);
   const [value, setValue] = useState("");
 
   useEffect(() => {

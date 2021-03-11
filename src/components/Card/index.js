@@ -32,7 +32,7 @@ const Card = ({ realEstate, delay }) => {
         <S.Type>{realEstate.info.sale}</S.Type>
 
         <S.DescriptionIcons>
-          {realEstate.spotlight && <FaStar />}
+          {realEstate.info.spotlight && <FaStar />}
         </S.DescriptionIcons>
       </S.ContainerImg>
 

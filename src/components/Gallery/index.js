@@ -49,7 +49,8 @@ function Gallery({
   };
 
   const handleDeleteImg = (id, key) => {
-    if (key !== null) {
+    console.log(key);
+    if (key !== undefined) {
       thumb
         ? deleteThumb({ variables: { postId, key } })
         : deleteImg({ variables: { postId, key } });

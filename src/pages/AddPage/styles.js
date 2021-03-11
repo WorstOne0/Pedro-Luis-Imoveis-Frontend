@@ -232,8 +232,6 @@ export const StyleCheckBox = styled.div`
   .Checked {
     margin-right: 5px;
 
-    display: ${(props) => props.children[0].props.check};
-
     color: var(--color-primary);
     font-size: 18px;
 
@@ -242,8 +240,6 @@ export const StyleCheckBox = styled.div`
 
   .Unchecked {
     margin-right: 5px;
-
-    display: ${(props) => props.children[1].props.check};
 
     color: var(--color-primary);
     font-size: 18px;
@@ -301,6 +297,13 @@ export const ImgContainer = styled.div`
     border: 1px solid #f5f5f5;
     background: var(--color-primary);
   }
+`;
+
+export const Column = styled.div`
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
 `;
 
 export const ImgWithProgress = styled.div`
