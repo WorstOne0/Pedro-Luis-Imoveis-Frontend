@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 
 import { NavBar, Footer, Showcase } from "../../components";
 
@@ -8,8 +8,18 @@ import { Container, Intro, IntroLeft, IntroImg, IntroTitle } from "./styles";
 
 import { MdKeyboardArrowDown } from "react-icons/md";
 
-const RealEstate = () => {
+const RealEstate = ({ location }) => {
   const myRef = useRef();
+
+  useEffect(() => {
+    document.documentElement.scrollTop = 0;
+
+    if (location.state) {
+      location.state.scroll
+        ? scroll.scrollTo(myRef.current.clientHeight)
+        : (document.documentElement.scrollTop = 0);
+    }
+  }, []);
 
   const introImg = require("../../assets/man-using-stylus-pen-for-touching-the-digital-tablet-screen-6335.jpg")
     .default;

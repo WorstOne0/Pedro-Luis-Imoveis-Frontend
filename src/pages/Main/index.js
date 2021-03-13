@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useQuery, gql } from "@apollo/client";
 import { Link } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -30,19 +31,36 @@ import {
   FaWhatsapp,
 } from "react-icons/fa";
 
-/*
-  fetchData = async () => {
-    const search = {
-      type: null,
-      city: null,
-      realState: null,
-      district: [],
-      spotlight: true,
-      sort: "createdAt",
-      price: { min: 0, max: 1000000000000 },
-      area: { min: 0, max: 1000000000000 },
-    };
-*/
+const POSTS = gql`
+  query SearchPost($query: Search!, $page: Int!) {
+    searchPost(query: $query, page: $page) {
+      docs {
+        id
+        name
+        type
+        description
+        price
+        info {
+          area
+          sale
+          room
+          suite
+          garage
+          spotlight
+        }
+        address {
+          street
+          district
+          city
+          state
+        }
+        thumbnail {
+          url
+        }
+      }
+    }
+  }
+`;
 
 const Main = () => {
   const dispatch = useDispatch();
@@ -56,13 +74,57 @@ const Main = () => {
     realStateSelected,
   } = useSelector((state) => state.search);
 
+  const { loading, error, data } = useQuery(POSTS, {
+    variables: {
+      query: {
+        typeSelected: null,
+        citySelected: null,
+        districtSelected: [],
+        realStateSelected: null,
+        sort: "-createdAt",
+        spotlight: true,
+        price: {
+          min: 0,
+          max: 1000000,
+        },
+        area: {
+          min: 0,
+          max: 2500,
+        },
+      },
+      page: 1,
+    },
+    fetchPolicy: "network-only",
+  });
+
+  useEffect(() => {
+    document.documentElement.scrollTop = 0;
+  }, []);
+
   const ImgCity = require("../../assets/nagatoshi-shimamura-ZLjMqugKoDA-unsplash.jpg")
     .default;
   const TypingImg = require("../../assets/1_new_condo.gif").default;
   const AuthorSrcImg = require("../../assets/16649071_1113406715448385_828873973785613706_n.jpg")
     .default;
 
-  const realEstate = [];
+  const deviceType = {
+    desktopFull: {
+      breakpoint: { max: 3000, min: 1700 },
+      items: 4,
+    },
+    desktop: {
+      breakpoint: { max: 1700, min: 1315 },
+      items: 3,
+    },
+    microTablet: {
+      breakpoint: { max: 1315, min: 880 },
+      items: 2,
+    },
+    mobile: {
+      breakpoint: { max: 880, min: 0 },
+      items: 1,
+    },
+  };
   const total = 0;
 
   return (
@@ -135,7 +197,7 @@ const Main = () => {
                   options={type}
                   value={typeSelected}
                   onChange={(value) =>
-                    this.props.addSearch({ typeSelected: value })
+                    dispatch(addSearch({ typeSelected: value }))
                   }
                   placeholder={"Venda"}
                   isClearable={true}
@@ -146,7 +208,7 @@ const Main = () => {
                   options={city}
                   value={citySelected}
                   onChange={(value) =>
-                    this.props.addSearch({ citySelected: value })
+                    dispatch(addSearch({ citySelected: value }))
                   }
                   placeholder={"Cidade"}
                   isClearable={true}
@@ -154,10 +216,10 @@ const Main = () => {
                 />
                 <Select
                   styles={S.customStyles}
-                  options={district}
+                  options={definition}
                   value={realStateSelected}
                   onChange={(value) =>
-                    this.props.addSearch({ realStateSelected: value })
+                    dispatch(addSearch({ realStateSelected: value }))
                   }
                   placeholder={"Tipo do Imóvel"}
                   isClearable={true}
@@ -168,7 +230,7 @@ const Main = () => {
                   options={district}
                   value={districtSelected}
                   onChange={(value) =>
-                    this.props.addSearch({ districtSelected: value })
+                    dispatch(addSearch({ districtSelected: value }))
                   }
                   placeholder={"Bairro"}
                   isClearable={true}
@@ -205,35 +267,17 @@ const Main = () => {
             <S.SpotlightNumber>+{total}</S.SpotlightNumber>
           </S.SpotlightHeader>
 
-          {false ? (
+          {!loading ? (
             <S.SpotlightSlider>
               <Carousel
-                responsive={{
-                  desktopFull: {
-                    breakpoint: { max: 3000, min: 1700 },
-                    items: 4,
-                  },
-                  desktop: {
-                    breakpoint: { max: 1700, min: 1315 },
-                    items: 3,
-                  },
-                  microTablet: {
-                    breakpoint: { max: 1315, min: 880 },
-                    items: 2,
-                  },
-                  mobile: {
-                    breakpoint: { max: 880, min: 0 },
-                    items: 1,
-                  },
-                }}
+                responsive={deviceType}
                 swipeable={true}
                 draggable={true}
                 showDots={false}
                 infinite={true}
-                autoPlay={this.props.deviceType !== "mobile" ? true : false}
-                autoPlaySpeed={3500}
+                autoPlay={false}
                 removeArrowOnDeviceType={["microTablet", "mobile"]}
-                deviceType={this.props.deviceType}
+                deviceType={deviceType}
                 containerClass="Carousel"
                 dotListClass="Dot"
                 itemClass="Item"
@@ -249,7 +293,7 @@ const Main = () => {
                   </S.CarouselRightButton>
                 }
               >
-                {realEstate.map((item, index) => (
+                {data.searchPost.docs.map((item, index) => (
                   <Card key={item._id} realEstate={item} delay={index} />
                 ))}
               </Carousel>

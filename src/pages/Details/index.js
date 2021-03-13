@@ -102,6 +102,10 @@ const Details = ({ match }) => {
     arrows: false,
   };
 
+  useEffect(() => {
+    document.documentElement.scrollTop = 0;
+  }, []);
+
   return (
     <>
       {!loading ? (

@@ -257,7 +257,7 @@ export const Spotlight = styled.div`
 export const SpotlightHeader = styled.header`
   height: 70px;
   width: 100%;
-  padding: 100px 60px 40px 60px;
+  padding: 80px 60px 20px 60px;
 
   display: flex;
   justify-content: space-between;
@@ -275,12 +275,15 @@ export const SpotlightNumber = styled.label`
 `;
 
 export const SpotlightSlider = styled.div`
-  height: 580px;
+  height: 610px;
   width: calc(100% - 40px);
 
   .Carousel {
-    height: 560px;
+    height: 610px;
     width: auto;
+
+    display: flex;
+    align-items: flex-end;
 
     position: relative;
 

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useQuery, useMutation, gql } from "@apollo/client";
 import { Link, useHistory } from "react-router-dom";
 
@@ -7,11 +7,10 @@ import { NavBar, Footer, Loading, Showcase } from "../../components";
 import * as S from "./styles";
 
 import CountUp from "react-countup";
+import { animateScroll as scroll } from "react-scroll";
 
 import { FaUserFriends } from "react-icons/fa";
 import { MdMailOutline, MdLocationCity } from "react-icons/md";
-
-import errorImg from "../../assets/3008899.jpg";
 
 const LOGGED = gql`
   query {
@@ -32,12 +31,14 @@ export const LOGOUT = gql`
 const Admin = () => {
   const history = useHistory();
 
-  const { loading, error, data, refetch } = useQuery(LOGGED);
-  const [logout] = useMutation(LOGOUT);
+  const myRef = useRef();
 
-  useEffect(() => {
-    refetch();
-  }, [refetch]);
+  console.log(myRef);
+
+  const { loading, error, data } = useQuery(LOGGED, {
+    fetchPolicy: "network-only",
+  });
+  const [logout] = useMutation(LOGOUT);
 
   useEffect(() => {
     document.documentElement.scrollTop = 0;
@@ -54,12 +55,16 @@ const Admin = () => {
       {loading ? (
         <Loading />
       ) : data.getLoggedUser === null ? (
-        <S.Error url={errorImg}>You Shall not Pass</S.Error>
+        <S.Error>
+          <p>Área Restrita</p>
+          <p>Somente pessoal autorizado</p>
+          <S.GoBack onClick={() => history.push("/")}>Voltar</S.GoBack>
+        </S.Error>
       ) : (
         <>
           <NavBar />
 
-          <S.Container>
+          <S.Container ref={myRef}>
             <S.IntroTop>
               <S.TitleTop>{data.getLoggedUser.userName}</S.TitleTop>
 
@@ -84,7 +89,11 @@ const Admin = () => {
                 >
                   <S.AddButton>Adicionar</S.AddButton>
                 </Link>
-                <S.RemoveButton>Editar / Remover</S.RemoveButton>
+                <S.RemoveButton
+                  onClick={() => scroll.scrollTo(myRef.current.clientHeight)}
+                >
+                  Editar / Remover
+                </S.RemoveButton>
                 <Link
                   to="/admin/config"
                   style={{

@@ -91,13 +91,6 @@ const Showcase = () => {
     });
   }, []);
 
-  const [pages, setPages] = useState({
-    page: 1,
-    total: 1,
-    hasPrev: false,
-    hasNext: false,
-  });
-
   const myRef = useRef();
 
   let arrayPages = [];

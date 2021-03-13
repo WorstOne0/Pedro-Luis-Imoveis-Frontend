@@ -479,6 +479,30 @@ export const Wrapper = styled.div`
   display: flex;
 `;
 
+export const OptionButton = styled.button`
+  height: 60px;
+  width: 350px;
+  margin-top: 25px;
+  border: 1px solid var(--color-white);
+  border-radius: 5px;
+  background: transparent;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: var(--color-white);
+  font-size: 16px;
+
+  transition: all 0.3s;
+
+  :hover {
+    background: var(--color-white);
+
+    color: var(--color-primary);
+  }
+`;
+
 export const customStyles = {
   container: (provided, state) => ({
     ...provided,

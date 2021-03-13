@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useMutation, gql } from "@apollo/client";
 
 import * as S from "./styles";
@@ -54,6 +54,10 @@ function Contact() {
           errorMsg: "Erro ao enviar email",
         });
   };
+
+  useEffect(() => {
+    document.documentElement.scrollTop = 0;
+  }, []);
 
   const ImgCity = require(`../../assets/selective-focus-photo-of-green-telephone-955081.jpg`)
     .default;

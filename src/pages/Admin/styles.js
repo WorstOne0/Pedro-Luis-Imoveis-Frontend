@@ -276,17 +276,38 @@ export const DataBoxFooter = styled.h1`
 export const Error = styled.div`
   height: 100vh;
   width: 100%;
+  background: var(--color-white);
 
-  background-image: url(${(props) => props.url});
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  color: #f52216;
+  font-size: 46px;
+`;
+
+export const GoBack = styled.button`
+  height: 60px;
+  width: 350px;
+  margin-top: 25px;
+  border: 1px solid var(--color-secundary);
+  border-radius: 5px;
+  background: transparent;
 
   display: flex;
   justify-content: center;
   align-items: center;
 
-  color: #f52216;
-  font-size: 46px;
+  color: var(--color-secundary);
+  font-size: 16px;
+
+  transition: all 0.3s;
+
+  :hover {
+    border: none;
+    background: var(--color-secundary);
+
+    color: var(--color-white);
+  }
 `;

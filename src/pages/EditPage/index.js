@@ -232,6 +232,10 @@ const EditPage = ({ match }) => {
     handleValidation();
   }, [text]);
 
+  useEffect(() => {
+    document.documentElement.scrollTop = 0;
+  }, []);
+
   const uploadToS3 = async () => {
     if (thumbnail[0].url === null) {
       const res = await s3.uploadFile(
@@ -888,6 +892,12 @@ const EditPage = ({ match }) => {
                   <>
                     <FaCheckCircle className="Accepted" />
                     Imóvel adicionado com sucesso!
+                    <S.OptionButton onClick={() => window.location.reload()}>
+                      Editar novamente
+                    </S.OptionButton>
+                    <S.OptionButton onClick={() => history.goBack()}>
+                      Finalizar
+                    </S.OptionButton>
                   </>
                 ) : control.isUploading ? (
                   <Loading color="var(--color-primary)" svg="#fff" />

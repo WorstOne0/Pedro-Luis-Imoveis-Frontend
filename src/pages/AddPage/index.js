@@ -105,8 +105,8 @@ const AddPage = () => {
   });
 
   useEffect(() => {
-    refetch();
-  }, [refetch]);
+    document.documentElement.scrollTop = 0;
+  }, []);
 
   useEffect(() => {
     if (uploadedFiles.length === 0) setUpload(false);
@@ -702,6 +702,12 @@ const AddPage = () => {
                   <>
                     <FaCheckCircle className="Accepted" />
                     Imóvel adicionado com sucesso!
+                    <S.OptionButton onClick={() => window.location.reload()}>
+                      Adicionar outro imóvel
+                    </S.OptionButton>
+                    <S.OptionButton onClick={() => history.goBack()}>
+                      Finalizar
+                    </S.OptionButton>
                   </>
                 ) : control.isUploading ? (
                   <Loading color="var(--color-primary)" svg="#fff" />
