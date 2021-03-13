@@ -70,7 +70,9 @@ const Showcase = () => {
     area,
   } = useSelector((state) => state.search);
 
-  const [searchPost, { loading, error, data }] = useLazyQuery(POSTS);
+  const [searchPost, { loading, error, data }] = useLazyQuery(POSTS, {
+    fetchPolicy: "network-only",
+  });
 
   useEffect(() => {
     searchPost({
