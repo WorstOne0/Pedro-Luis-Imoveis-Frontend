@@ -154,6 +154,7 @@ function Contact() {
                     borderColorHover={"var(--color-white)"}
                     backgroundName={"var(--color-primary)"}
                     icon={<MdPhone />}
+                    mask={"(99) 99999-9999"}
                   />
                 </S.ContainerInput>
 

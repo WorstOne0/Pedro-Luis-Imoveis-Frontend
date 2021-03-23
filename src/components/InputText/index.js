@@ -14,14 +14,14 @@ const InputText = ({
   borderColorHover = "var(--color-primary)",
   color = "var(--color-white)",
   colorLabel = "var(--color-white)",
-  onFocus,
-  onBlur,
   required = true,
+  mask = "",
 }) => {
   return (
     <Container margin={margin} backgroundName={backgroundName}>
       <Input
         value={value}
+        mask={mask}
         type={type}
         className="Input"
         autoComplete="off"
@@ -30,8 +30,6 @@ const InputText = ({
         borderColor={borderColor}
         borderColorHover={borderColorHover}
         color={color}
-        onFocus={onFocus ? onFocus : () => {}}
-        onBlur={onBlur ? onBlur : () => {}}
       />
       <Label className="Label" colorLabel={colorLabel}>
         {icon && <Icon>{icon}</Icon>} {name}
