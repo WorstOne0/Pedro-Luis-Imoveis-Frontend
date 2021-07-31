@@ -275,7 +275,7 @@ export const SpotlightNumber = styled.label`
 `;
 
 export const SpotlightSlider = styled.div`
-  height: 610px;
+  height: 630px;
   width: calc(100% - 40px);
 
   .Carousel {

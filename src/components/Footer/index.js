@@ -65,16 +65,16 @@ const Footer = () => {
               Rua Barão do Cerro Azul, 699, Centro
             </S.PlaceDetails>
             <S.PlaceDetails>
-              <FaPhone />
-              (45) 3303-4265
-            </S.PlaceDetails>
-            <S.PlaceDetails>
               <FaWhatsapp />
               (45) 9 9967-1342
             </S.PlaceDetails>
             <S.PlaceDetails>
+              <FaPhone />
+              (45) 3303-4265
+            </S.PlaceDetails>
+            <S.PlaceDetails>
               <MdMailOutline />
-              contato@pedroluis.com
+              contato@pedroluisimoveis.com.br
             </S.PlaceDetails>
           </S.Place>
         </S.Right>

@@ -79,6 +79,7 @@ export const Nothing = styled.div`
 
   color: #003c8f;
   font-size: 34px;
+  text-align: center;
 
   .Icon {
     margin-bottom: 10px;

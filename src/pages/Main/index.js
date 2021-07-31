@@ -67,12 +67,8 @@ const Main = () => {
 
   const screen = useWindowSize();
 
-  const {
-    typeSelected,
-    citySelected,
-    districtSelected,
-    realStateSelected,
-  } = useSelector((state) => state.search);
+  const { typeSelected, citySelected, districtSelected, realStateSelected } =
+    useSelector((state) => state.search);
 
   const { loading, error, data } = useQuery(POSTS, {
     variables: {
@@ -101,11 +97,11 @@ const Main = () => {
     document.documentElement.scrollTop = 0;
   }, []);
 
-  const ImgCity = require("../../assets/nagatoshi-shimamura-ZLjMqugKoDA-unsplash.jpg")
-    .default;
+  const ImgCity =
+    require("../../assets/nagatoshi-shimamura-ZLjMqugKoDA-unsplash.jpg").default;
   const TypingImg = require("../../assets/1_new_condo.gif").default;
-  const AuthorSrcImg = require("../../assets/16649071_1113406715448385_828873973785613706_n.jpg")
-    .default;
+  const AuthorSrcImg =
+    require("../../assets/16649071_1113406715448385_828873973785613706_n.jpg").default;
 
   const deviceType = {
     desktopFull: {
@@ -365,18 +361,17 @@ const Main = () => {
           <S.AuthorMain>
             <S.AuthorTitle>
               Pedro Luis dos Santos
-              <S.AuthorSubtitle>Creci 123.456.78/123.456.78</S.AuthorSubtitle>
+              <S.AuthorSubtitle>
+                CRECI - F 17790/6ª Região - J 05992/6ª Região
+              </S.AuthorSubtitle>
             </S.AuthorTitle>
             <S.AuthorDescription>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas
-              condimentum augue non hendrerit tempor. Donec id viverra orci, sit
-              amet ultricies ex. Sed eu consectetur elit, a mattis metus. Donec
-              interdum velit ornare facilisis pretium. Duis diam neque, finibus
-              vitae varius sit amet, elementum a ex. Mauris ex tellus, interdum
-              quis lorem eget, bibendum tincidunt lorem. Vivamus posuere libero
-              sit amet pellentesque suscipit. Maecenas congue nec nisl in
-              lacinia. Etiam nec pulvinar est. Suspendisse eu ipsum ullamcorper,
-              interdum metus eget, efficitur diam.
+              A Pedro Luis Corretagem de Imóveis tem como corretor responsável
+              Pedro Luis dos Santos; Profissional com 30 anos de aprendizado que
+              conduz a experiência. Avaliador imobiliário inscrito no CNAI,
+              conhecedor da documentação para a adequada regularização
+              imobiliária, incorporação e instituição de condôminios,
+              conhecimento e experiência a serviço da realização do seu sonho.
             </S.AuthorDescription>
             <S.AuthorDetails>
               <S.AuthorSocialMedia>
@@ -384,12 +379,20 @@ const Main = () => {
                   style={{ color: "#3b5998", cursor: "pointer" }}
                   onClick={() =>
                     window.open(
-                      "https://www.facebook.com/PedroLuisCorretagem/",
+                      "https://www.facebook.com/PedroLuisCorretagem",
                       "_blank"
                     )
                   }
                 />
-                <FaInstagram style={{ color: "#dc2743", cursor: "pointer" }} />
+                <FaInstagram
+                  style={{ color: "#dc2743", cursor: "pointer" }}
+                  onClick={() =>
+                    window.open(
+                      "https://www.instagram.com/pedroluiscorretagem/",
+                      "_blank"
+                    )
+                  }
+                />
                 <FaTwitter style={{ color: "#00acee", cursor: "pointer" }} />
                 <FaWhatsapp
                   style={{ color: "green", cursor: "pointer" }}

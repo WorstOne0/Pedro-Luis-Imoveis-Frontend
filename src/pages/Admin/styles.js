@@ -37,15 +37,19 @@ export const IntroImg = styled.div`
 `;
 
 export const IntroTop = styled.div`
-  height: 100%;
+  min-height: 350px;
   width: 100%;
   background: #003c8f;
+
+  display: flex;
+  flex: 1;
 
   position: relative;
   z-index: 1;
 
   @media only screen and (max-width: 650px) {
-    height: 50vh;
+    height: 40vh;
+    min-height: 0;
   }
 `;
 
@@ -91,8 +95,7 @@ export const Logout = styled.button`
 `;
 
 export const IntroBottom = styled.div`
-  height: 50vh;
-  max-height: 390px;
+  height: 350px;
   width: 100%;
   background: #f5f5f5;
 
@@ -104,8 +107,7 @@ export const IntroBottom = styled.div`
   z-index: 1;
 
   @media only screen and (max-width: 650px) {
-    height: 50vh;
-    max-height: 50vh;
+    height: 60vh;
 
     flex-direction: column;
   }
@@ -125,7 +127,7 @@ export const UserNameBottom = styled.h1`
 export const UselessSpaceForNow = styled.div`
   height: 100%;
   width: calc(10% + 280px);
-  padding: 120px 20px 20px 20px;
+  padding: 110px 20px 20px 20px;
 
   display: flex;
   justify-content: space-around;
