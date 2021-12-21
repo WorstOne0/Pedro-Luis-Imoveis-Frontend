@@ -329,7 +329,7 @@ const Main = () => {
 
             <S.TypingText>
               Somos a Pedro Luis Imóveis. Venda, compra e avaliaçoes de imóveis.
-              30 anos de aprendizado com a missaão de proporcionar a nossos
+              30 anos de aprendizado com a missão de proporcionar a nossos
               clientes a melhor experiência em serviços na compra, venda e
               avaliação do seu imóvel. Servir e o nosso próposito.
             </S.TypingText>
