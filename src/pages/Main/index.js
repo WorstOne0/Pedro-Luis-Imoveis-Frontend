@@ -101,7 +101,7 @@ const Main = () => {
     require("../../assets/nagatoshi-shimamura-ZLjMqugKoDA-unsplash.jpg").default;
   const TypingImg = require("../../assets/1_new_condo.gif").default;
   const AuthorSrcImg =
-    require("../../assets/16649071_1113406715448385_828873973785613706_n.jpg").default;
+    require("../../assets/Captura_de_Tela__25_-removebg-preview.png").default;
 
   const deviceType = {
     desktopFull: {
@@ -271,7 +271,8 @@ const Main = () => {
                 draggable={true}
                 showDots={false}
                 infinite={true}
-                autoPlay={false}
+                autoPlay={true}
+                autoPlaySpeed={7000}
                 removeArrowOnDeviceType={["microTablet", "mobile"]}
                 deviceType={deviceType}
                 containerClass="Carousel"

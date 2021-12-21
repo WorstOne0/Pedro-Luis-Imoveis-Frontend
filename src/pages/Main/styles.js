@@ -518,7 +518,7 @@ export const AuthorContainer = styled.div`
 `;
 
 export const AuthorImgContainer = styled.div`
-  height: 100%;
+  height: 80%;
   width: 50%;
   padding: 20px;
 
