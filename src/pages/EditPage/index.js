@@ -120,6 +120,29 @@ const EditPage = ({ match }) => {
   const history = useHistory();
   const dispatch = useDispatch();
 
+  const [text, setText] = useState({
+    name: "",
+    definitionSelected: null,
+    description: "",
+    price: "",
+    area: "",
+    suite: "",
+    room: "",
+    garage: "",
+    typeSelected: null,
+    street: "",
+    districtSelected: null,
+    latitude: "",
+    longitude: "",
+    spotlight: false,
+  });
+
+  const [uploadedFiles, setUploadedFiles] = useState([]);
+  const [upload, setUpload] = useState(false);
+
+  const [thumbnail, setThumbnail] = useState([]);
+  const [uploadThumb, setUploadThumb] = useState(false);
+
   const { loading: loadingUser, data: user } = useQuery(LOGGED);
   const { loading, data } = useQuery(GET_POST, {
     variables: { postId: match.params.id },
@@ -188,30 +211,7 @@ const EditPage = ({ match }) => {
   const [updatePost] = useMutation(UPDATE_POST);
   const [deletePost] = useMutation(DELETE_POST);
 
-  const [text, setText] = useState({
-    name: "",
-    definitionSelected: null,
-    description: "",
-    price: "",
-    area: "",
-    suite: "",
-    room: "",
-    garage: "",
-    typeSelected: null,
-    street: "",
-    districtSelected: null,
-    latitude: "",
-    longitude: "",
-    spotlight: false,
-  });
-
   const todoList = useSelector((state) => state.todoList);
-
-  const [uploadedFiles, setUploadedFiles] = useState([]);
-  const [upload, setUpload] = useState(false);
-
-  const [thumbnail, setThumbnail] = useState([]);
-  const [uploadThumb, setUploadThumb] = useState(false);
 
   const [control, setControl] = useState({
     error: ["Documento vazio"],

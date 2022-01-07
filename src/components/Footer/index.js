@@ -43,7 +43,16 @@ const Footer = () => {
             >
               <FaFacebookF />
             </S.SocialMedia>
-            <S.SocialMedia color="#dc2743">
+
+            <S.SocialMedia
+              color="#dc2743"
+              onClick={() =>
+                window.open(
+                  "https://www.instagram.com/pedroluisimoveis/",
+                  "_blank"
+                )
+              }
+            >
               <FaInstagram />
             </S.SocialMedia>
             <S.SocialMedia color="#00acee">

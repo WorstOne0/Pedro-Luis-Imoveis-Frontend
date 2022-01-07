@@ -389,7 +389,7 @@ const Main = () => {
                   style={{ color: "#dc2743", cursor: "pointer" }}
                   onClick={() =>
                     window.open(
-                      "https://www.instagram.com/pedroluiscorretagem/",
+                      "https://www.instagram.com/pedroluisimoveis/",
                       "_blank"
                     )
                   }
