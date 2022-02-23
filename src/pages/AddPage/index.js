@@ -333,8 +333,8 @@ const AddPage = () => {
           district: districtSelected.value,
           city: "Cascavel",
           state: "PR",
-          latitude: parseInt(latitude),
-          longitude: parseInt(longitude),
+          latitude: parseFloat(latitude),
+          longitude: parseFloat(longitude),
         },
         imagens: uploadedFiles.map((file) => ({
           name: file.file.name,
