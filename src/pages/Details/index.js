@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 import * as S from "./styles";
 
-import { NavBar, Footer, Loading, Maps } from "../../components";
+import { NavBar, Footer, Loading, Maps, Gallery } from "../../components";
 
 import Lightbox from "fslightbox-react";
 
@@ -143,7 +143,7 @@ const Details = ({ match }) => {
               <S.MainContainer>
                 <S.MainBlock>
                   <S.MainTitle>
-                    Descrição{" "}
+                    Descrição
                     <S.MainSubtitle>{data.getPost.type}</S.MainSubtitle>
                   </S.MainTitle>
                   <S.MainText>{data.getPost.description}</S.MainText>
@@ -164,7 +164,16 @@ const Details = ({ match }) => {
                     sources={data.getPost.imagens.map((image) => image.url)}
                   />
 
-                  <Slider {...settings}>
+                  <Gallery
+                    height="60rem"
+                    readOnly={true}
+                    uploadedFiles={data.getPost.imagens}
+                    activeLightBox={true}
+                    lightBoxState={lightBox}
+                    lightBox={setLightBox}
+                  />
+
+                  {/** <Slider {...settings}>
                     {data.getPost.imagens.map((image, index) => (
                       <S.Wrapper>
                         <img
@@ -180,7 +189,7 @@ const Details = ({ match }) => {
                         />
                       </S.Wrapper>
                     ))}
-                  </Slider>
+                  </Slider> */}
                 </S.MainBlock>
 
                 <S.MainBlock>

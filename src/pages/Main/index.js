@@ -260,7 +260,7 @@ const Main = () => {
         <S.Spotlight>
           <S.SpotlightHeader>
             <S.SpotlightTitle>Destaques</S.SpotlightTitle>
-            <S.SpotlightNumber>+{total}</S.SpotlightNumber>
+            <S.SpotlightNumber></S.SpotlightNumber>
           </S.SpotlightHeader>
 
           {!loading ? (

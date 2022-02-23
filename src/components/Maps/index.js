@@ -36,7 +36,7 @@ const Maps = ({
   return (
     <Container height={height} width={width}>
       <GoogleMaps
-        googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
+        googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_API_KEY}&v=3.exp&libraries=geometry,drawing,places`}
         loadingElement={<div style={{ height }} />}
         containerElement={<div style={{ height }} />}
         mapElement={<div style={{ height }} />}

@@ -26,6 +26,9 @@ function Gallery({
   readOnly = false,
   thumb = false,
   postId,
+  activeLightBox = false,
+  lightBoxState,
+  lightBox,
 }) {
   const [deleteImg] = useMutation(DELETE_IMG);
   const [deleteThumb] = useMutation(DELETE_THUMB);
@@ -68,7 +71,7 @@ function Gallery({
           translate={index * (100 / uploadedFiles.length)}
           width={uploadedFiles.length}
         >
-          {uploadedFiles.map((image) => (
+          {uploadedFiles.map((image, index) => (
             <S.ImageContainer>
               <S.WrapperImg>
                 {!readOnly && (
@@ -78,7 +81,17 @@ function Gallery({
                     <AiFillDelete />
                   </S.DeleteImg>
                 )}
-                <S.Image src={readOnly ? image.url : image.preview} />
+                <S.Image
+                  src={readOnly ? image.url : image.preview}
+                  onClick={() => {
+                    if (!activeLightBox) return;
+
+                    lightBox({
+                      toggle: !lightBoxState.toggle,
+                      slide: index + 1,
+                    });
+                  }}
+                />
               </S.WrapperImg>
             </S.ImageContainer>
           ))}

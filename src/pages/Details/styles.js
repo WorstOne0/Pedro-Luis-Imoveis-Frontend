@@ -139,7 +139,7 @@ export const MainTitle = styled.h1`
   align-items: center;
 
   color: #003c8f;
-  font-size: 24px;
+  font-size: 30px;
   font-weight: bold;
 
   @media only screen and (max-width: 950px) {
@@ -151,13 +151,13 @@ export const MainSubtitle = styled.h1`
   width: auto;
 
   color: #999;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: normal;
 `;
 
 export const MainText = styled.p`
   color: #000;
-  font-size: 16px;
+  font-size: 18px;
   text-align: justify;
 `;
 
@@ -251,7 +251,7 @@ export const SideTitle = styled.h1`
   align-items: center;
 
   color: #f5f5f5;
-  font-size: 24px;
+  font-size: 30px;
 `;
 
 export const SideDetails = styled.div`
@@ -277,7 +277,7 @@ export const SideLabel = styled.div`
   align-items: center;
 
   color: #f5f5f5;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: bold;
 `;
 
@@ -290,7 +290,7 @@ export const SideValue = styled.div`
   align-items: center;
 
   color: #f5f5f5;
-  font-size: 16px;
+  font-size: 18px;
 
   .Icon {
     margin-left: 10px;
