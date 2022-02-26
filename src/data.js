@@ -37,6 +37,9 @@ module.exports = {
     { label: "Santos Dumont", value: "Santos Dumont" },
     { label: "Santa Cruz", value: "Santa Cruz" },
     { label: "Esmerald", value: "Esmerald" },
+    { label: "Maria Luiza", value: "Maria Luiza" },
+    { label: "Vista Linda", value: "Vista Linda" },
+    { label: "Santo Inácio/FAG", value: "Santo Inácio/FAG" },
   ],
   definition: [
     { label: "Apartamento", value: "Apartamento" },
