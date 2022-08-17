@@ -48,7 +48,7 @@ export const Label = styled.label`
   left: 2rem;
 
   color: ${(props) => props.colorLabel};
-  font-size: 1.6rem;
+  font-size: 1.8rem;
 
   transform: translateY(-50%);
 
@@ -62,4 +62,6 @@ export const Icon = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  font-size: 2.2rem;
 `;

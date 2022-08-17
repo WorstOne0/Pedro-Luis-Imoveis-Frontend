@@ -146,7 +146,7 @@ export const InfoButton = styled.a`
   .Icon {
     margin-right: 10px;
 
-    font-size: 18px;
+    font-size: 24px;
   }
 
   @media only screen and (max-width: 900px) {
