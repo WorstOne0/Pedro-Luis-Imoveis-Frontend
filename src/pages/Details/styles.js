@@ -309,7 +309,8 @@ export const SidePrice = styled.div`
   align-items: center;
 
   color: #f5f5f5;
-  font-size: 18px;
+  font-size: 22px;
+  font-family: "Stardos Stencil";
 `;
 
 export const EditButton = styled.button`

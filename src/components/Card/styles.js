@@ -152,8 +152,10 @@ export const PriceLabel = styled.label`
 
 export const Price = styled.h1`
   color: #fff;
-  font-size: 22px;
+  font-size: 24px;
   font-weight: 500;
+
+  font-family: "Stardos Stencil";
 `;
 
 export const CardDetails = styled.div`
