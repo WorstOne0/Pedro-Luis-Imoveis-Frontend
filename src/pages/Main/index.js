@@ -19,17 +19,8 @@ import "react-typist/dist/Typist.css";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
-import {
-  MdSearch,
-  MdKeyboardArrowRight,
-  MdKeyboardArrowLeft,
-} from "react-icons/md";
-import {
-  FaFacebookF,
-  FaInstagram,
-  FaTwitter,
-  FaWhatsapp,
-} from "react-icons/fa";
+import { MdSearch, MdKeyboardArrowRight, MdKeyboardArrowLeft } from "react-icons/md";
+import { FaFacebookF, FaInstagram, FaTwitter, FaWhatsapp } from "react-icons/fa";
 
 const POSTS = gql`
   query SearchPost($query: Search!, $page: Int!) {
@@ -67,8 +58,7 @@ const Main = () => {
 
   const screen = useWindowSize();
 
-  const { typeSelected, citySelected, districtSelected, realStateSelected } =
-    useSelector((state) => state.search);
+  const { typeSelected, citySelected, districtSelected, realStateSelected } = useSelector((state) => state.search);
 
   const { loading, error, data } = useQuery(POSTS, {
     variables: {
@@ -97,11 +87,9 @@ const Main = () => {
     document.documentElement.scrollTop = 0;
   }, []);
 
-  const ImgCity =
-    require("../../assets/nagatoshi-shimamura-ZLjMqugKoDA-unsplash.jpg").default;
+  const ImgCity = require("../../assets/nagatoshi-shimamura-ZLjMqugKoDA-unsplash.jpg").default;
   const TypingImg = require("../../assets/1_new_condo.gif").default;
-  const AuthorSrcImg =
-    require("../../assets/Captura_de_Tela__25_-removebg-preview.png").default;
+  const AuthorSrcImg = require("../../assets/Captura_de_Tela__25_-removebg-preview.png").default;
 
   const deviceType = {
     desktopFull: {
@@ -148,9 +136,7 @@ const Main = () => {
                 styles={S.customStyles}
                 options={type}
                 value={typeSelected}
-                onChange={(value) =>
-                  dispatch(addSearch({ typeSelected: value }))
-                }
+                onChange={(value) => dispatch(addSearch({ typeSelected: value }))}
                 placeholder={"Venda"}
                 isClearable={true}
               />
@@ -158,9 +144,7 @@ const Main = () => {
                 styles={S.customStyles}
                 options={city}
                 value={citySelected}
-                onChange={(value) =>
-                  dispatch(addSearch({ citySelected: value }))
-                }
+                onChange={(value) => dispatch(addSearch({ citySelected: value }))}
                 placeholder={"Cidade"}
                 isClearable={true}
               />
@@ -168,9 +152,7 @@ const Main = () => {
                 styles={S.customStyles}
                 options={definition}
                 value={realStateSelected}
-                onChange={(value) =>
-                  dispatch(addSearch({ realStateSelected: value }))
-                }
+                onChange={(value) => dispatch(addSearch({ realStateSelected: value }))}
                 placeholder={"Tipo do Imóvel"}
                 isClearable={true}
               />
@@ -178,9 +160,7 @@ const Main = () => {
                 styles={S.customStyles}
                 options={district}
                 value={districtSelected}
-                onChange={(value) =>
-                  dispatch(addSearch({ districtSelected: value }))
-                }
+                onChange={(value) => dispatch(addSearch({ districtSelected: value }))}
                 placeholder={"Bairro"}
                 isClearable={true}
               />
@@ -192,9 +172,7 @@ const Main = () => {
                   styles={S.customStyles}
                   options={type}
                   value={typeSelected}
-                  onChange={(value) =>
-                    dispatch(addSearch({ typeSelected: value }))
-                  }
+                  onChange={(value) => dispatch(addSearch({ typeSelected: value }))}
                   placeholder={"Venda"}
                   isClearable={true}
                   isSearchable={false}
@@ -203,9 +181,7 @@ const Main = () => {
                   styles={S.customStyles}
                   options={city}
                   value={citySelected}
-                  onChange={(value) =>
-                    dispatch(addSearch({ citySelected: value }))
-                  }
+                  onChange={(value) => dispatch(addSearch({ citySelected: value }))}
                   placeholder={"Cidade"}
                   isClearable={true}
                   isSearchable={false}
@@ -214,9 +190,7 @@ const Main = () => {
                   styles={S.customStyles}
                   options={definition}
                   value={realStateSelected}
-                  onChange={(value) =>
-                    dispatch(addSearch({ realStateSelected: value }))
-                  }
+                  onChange={(value) => dispatch(addSearch({ realStateSelected: value }))}
                   placeholder={"Tipo do Imóvel"}
                   isClearable={true}
                   isSearchable={false}
@@ -225,9 +199,7 @@ const Main = () => {
                   styles={S.customStyles}
                   options={district}
                   value={districtSelected}
-                  onChange={(value) =>
-                    dispatch(addSearch({ districtSelected: value }))
-                  }
+                  onChange={(value) => dispatch(addSearch({ districtSelected: value }))}
                   placeholder={"Bairro"}
                   isClearable={true}
                   isSearchable={false}
@@ -310,28 +282,20 @@ const Main = () => {
               <S.TypingTop>
                 Encontre
                 <TypistLoop interval={1000}>
-                  {["o Apartamento", "a Casa", "o Sobrado", "o Terreno"].map(
-                    (text, index) => (
-                      <Typist
-                        avgTypingDelay={100}
-                        className="Typing"
-                        key={index}
-                      >
-                        {text}
-                        <Typist.Backspace count={text.length} delay={1000} />
-                      </Typist>
-                    )
-                  )}
+                  {["o Apartamento", "a Casa", "o Sobrado", "o Terreno"].map((text, index) => (
+                    <Typist avgTypingDelay={100} className="Typing" key={index}>
+                      {text}
+                      <Typist.Backspace count={text.length} delay={1000} />
+                    </Typist>
+                  ))}
                 </TypistLoop>
               </S.TypingTop>
               Ideal para Você
             </S.TypingTitle>
 
             <S.TypingText>
-              Somos a Pedro Luis Imóveis. Venda, compra e avaliaçoes de imóveis.
-              30 anos de aprendizado com a missão de proporcionar a nossos
-              clientes a melhor experiência em serviços na compra, venda e
-              avaliação do seu imóvel. Servir e o nosso próposito.
+              Você está em busca do imóvel dos seus sonhos? Seja para uso pessoal ou investir, escolher o imóvel certo pode ser mais fácil do que você
+              imagina! Aqui na Pedro Luis Imóveis trablhamos para te ajudar em cada etapa da jornada.
             </S.TypingText>
 
             <Link
@@ -362,37 +326,22 @@ const Main = () => {
           <S.AuthorMain>
             <S.AuthorTitle>
               Pedro Luis dos Santos
-              <S.AuthorSubtitle>
-                CRECI - F 17790/6ª Região - J 05992/6ª Região
-              </S.AuthorSubtitle>
+              <S.AuthorSubtitle>CRECI - F 17790/6ª Região - J 05992/6ª Região</S.AuthorSubtitle>
             </S.AuthorTitle>
             <S.AuthorDescription>
-              A Pedro Luis Corretagem de Imóveis tem como corretor responsável
-              Pedro Luis dos Santos; Profissional com 30 anos de aprendizado que
-              conduz a experiência. Avaliador imobiliário inscrito no CNAI,
-              conhecedor da documentação para a adequada regularização
-              imobiliária, incorporação e instituição de condôminios,
-              conhecimento e experiência a serviço da realização do seu sonho.
+              A Pedro Luis Corretagem de Imóveis tem como corretor responsável Pedro Luis dos Santos; Profissional com 30 anos de aprendizado que
+              conduz a experiência. Avaliador imobiliário inscrito no CNAI, conhecedor da documentação para a adequada regularização imobiliária,
+              incorporação e instituição de condôminios, conhecimento e experiência a serviço da realização do seu sonho.
             </S.AuthorDescription>
             <S.AuthorDetails>
               <S.AuthorSocialMedia>
                 <FaFacebookF
                   style={{ color: "#3b5998", cursor: "pointer" }}
-                  onClick={() =>
-                    window.open(
-                      "https://www.facebook.com/PedroLuisCorretagem",
-                      "_blank"
-                    )
-                  }
+                  onClick={() => window.open("https://www.facebook.com/PedroLuisCorretagem", "_blank")}
                 />
                 <FaInstagram
                   style={{ color: "#dc2743", cursor: "pointer" }}
-                  onClick={() =>
-                    window.open(
-                      "https://www.instagram.com/pedroluisimoveis/",
-                      "_blank"
-                    )
-                  }
+                  onClick={() => window.open("https://www.instagram.com/pedroluisimoveis/", "_blank")}
                 />
                 <FaTwitter style={{ color: "#00acee", cursor: "pointer" }} />
                 <FaWhatsapp
